@@ -3,17 +3,17 @@
 This is the official repository for the MGCAMB v3.0 patch.  Below there are an introduction to the code and the instructions to install 
 
 ## Table of contents
-*[Introduction](#introduction)
-   *[Structure of the code](#structure-of-the-code)
-   *[Consistency of the code]
-   *[Referencing MGCAMB](#referencing)
-*[How to install](#how-to-install)
-*[How to run](#how-to-run)
-   *[Run the code](#run-the-code)
-   *[Run the test suite](#run-the-test-tests)
-*[What's new](#whats-new)
-*[Examples](#examples)
-*[Authors List](#authors-list)
+* [Introduction](#introduction)
+   * [Structure of the code](#structure-of-the-code)
+   * [Consistency of the code](#consistency-pf-the-code)
+   * [Referencing MGCAMB](#referencing)
+* [How to install](#how-to-install)
+* [How to run](#how-to-run)
+   * [Run the code](#run-the-code)
+   * [Run the test suite](#run-the-test-tests)
+* [What's new](#whats-new)
+* [Examples](#examples)
+*  [Authors List](#authors-list)
 
 
 ## Introduction
@@ -29,7 +29,11 @@ The new MGCAMB patch is structured as in the figure.
 
 
 ### Consistency of the code
-The General Relativity (GR) limit of the code has been tested 
+The General Relativity (GR) limit of the code has been tested. The results are shown in the figure below
+
+<p align="center">
+<img src="mgcamb_tests/python/cls_mpk_consistency_max.pdf" width="1000" title="MGCAMB consistency" />
+</p>
 
 ### Referencing MGCAMB
 If you use MGCAMB for your scientific work, please cite the following papers.
@@ -57,7 +61,7 @@ If you want to run the test suite to produce the consistency plots in our paper,
 
 ```bash
 cd mgcamb_tests
-
+make 
 ```
 
 
