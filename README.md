@@ -32,6 +32,8 @@ The new MGCAMB patch is structured as in the figure.
 <img src="img/MGCAMB_flowchart.png" width="1000" title="MGCAMB code structure" />
 </p>
 
+The parameters in  [``` params_MG.ini ``` ](params_MG.ini) are used to run the code and follow the structure above. 
+Please, note that dynamical DE is supported in the ``` pure_MG_models ```. 
 
 ### Consistency of the code
 The General Relativity (GR) limit of the code has been tested. The results are shown in the figure below.
@@ -91,13 +93,13 @@ The MG and DE parametrizations along with the computation of the quantities rela
 
 ## Authors List
 Main Developer:
-- Alex Zucca azucca@sfu.ca
+- [Alex Zucca](https://www.sfu.ca/physics/people/profiles/azucca.html) Email: azucca@sfu.ca
 
 Original Code Developers:
-- Gong-Bo Zhao
-- Alireza Hojjati
-- Alessandra Silvestri
-- Levon Pogosian
+- [Gong-Bo Zhao](http://icosmology.info)
+- [Alireza Hojjati](http://www.phas.ubc.ca/%7Eahojjati/index.html)
+- [Alessandra Silvestri](http://wwwhome.lorentz.leidenuniv.nl/%7Esilvestri/Home.html)
+- [Levon Pogosian](http://www.sfu.ca/%7Elevon/)
 
 
-Repo created and maintained by Alex Zucca
+Repo created and maintained by Alex Zucca. If you find any bugs in the code, please contact Alex Zucca at azucca@sfu.ca .
