@@ -38,9 +38,11 @@ The General Relativity (GR) limit of the code has been tested. The results are s
 <img src="img/cls_mpk_consistency_max.png" width="750" title="MGCAMB consistency" />
 </p>
 
-When the switch to MG is set at early times, the matter power spectrum systematic error increase at values slightly below 1%. Below there is an example of the relative differences 
+When the switch to MG is set at early times, the matter power spectrum systematic error increase at values slightly below 1%. Below there is an example of the relative differences between the GR limit of MGCAMB and the default CAMB for a neutrinos mass of 0.05 eV and a transition time ```GRtrans ```  = 0.001. 
 
-
+<p align="center">
+<img src="img/mpk_offset.png" width="500" title="MGCAMB mpk" /
+</p>
 
 ### Referencing MGCAMB
 If you use MGCAMB for your scientific work, please cite the following papers.
@@ -56,7 +58,7 @@ make camb
 ## How to run
 
 ### Run the code
-To run MGCAMB, first modify the  ``` params_MG.ini ``` file. Then run
+To run MGCAMB, first modify the  [``` params_MG.ini ``` ](params_MG.ini) file. Then run
 
 ```bash
 ./camb params_MG.ini
