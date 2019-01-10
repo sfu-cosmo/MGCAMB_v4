@@ -4,13 +4,12 @@ This is the official repository for the MGCAMB v3.0 patch.  Below there are an i
 
 ## Table of contents
 *[Introduction](#intro)
-    *[Strucutre of the code]
-    *[Referencing MGCAMB](#referencing)
-    
+   *[Strucutre of the code]
+   *[Referencing MGCAMB](#referencing)
 *[How to install](#how-to-install)
 *[How to run](#how-to-run)
-    *[Run the code](#run-code)
-    *[Run the test suite](#run-tests)
+   *[Run the code](#run-code)
+   *[Run the test suite](#run-tests)
 *[What's new](#whats-new)
 *[Examples](#examples)
 *[Authors List](#author-list)
@@ -24,7 +23,7 @@ Modified Growth with CAMB (MGCAMB) is a patch for the Einstein Boltzmann solver 
 The new MGCAMB patch is structured as in the figure.
 
 <p align="center">
-<img src="img/MGCAMB_flowchart.png" width="500" title="Distribution of weights and biases updates" />
+<img src="img/MGCAMB_flowchart.png" width="1000" title="MGCAMB code structure" />
 </p>
 
 ### Referencing MGCAMB
@@ -49,5 +48,16 @@ If you want to run the test suite, to produce the consistency plots in our paper
 
 
 ## What's new
+
+## Examples
+
+## Authors List
+Main Developer:
+- Alex Zucca 
+
+Original Code Developer:
+-Gong-Bo Zhao
+-Alessandra Silvestri
+-Levon Pogosian
 
 Alex Zucca: azucca@sfu.ca
