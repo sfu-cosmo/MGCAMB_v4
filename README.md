@@ -45,7 +45,7 @@ The General Relativity (GR) limit of the code has been tested. The results are s
 When the switch to MG is set at early times, the matter power spectrum systematic error increase at values slightly below 1%. Below there is an example of the relative differences between the GR limit of MGCAMB and the default CAMB for a neutrinos mass of 0.05 eV and a transition time ```GRtrans ```  = 0.001. 
 
 <p align="center">
-<img src="img/mpk_offset.png" width="500" title="MGCAMB mpk" /
+<img src="img/mpk_offset.png" width="500" title="MGCAMB mpk" />
 </p>
 
 ### Referencing MGCAMB
@@ -103,3 +103,8 @@ Original Code Developers:
 
 
 Repo created and maintained by Alex Zucca. If you find any bugs in the code, please contact Alex Zucca at azucca@sfu.ca .
+
+<p align="center">
+    <a href="http://www.sfu.ca/physics.html"><img src="https://pbs.twimg.com/profile_images/966810928669802496/LVqOwtsx_400x400.jpg" height="170px"></a>
+    <a href="http://www.sfu.ca/physics/cosmology/"><img src="https://avatars0.githubusercontent.com/u/7880410?s=280&v=4" height="200px"></a>
+</p>
