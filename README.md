@@ -4,7 +4,7 @@
 
 # MGCAMB v3.0
 ## Modified Growth with CAMB
-This is the official repository for the MGCAMB v3.0 patch.  Below there are an introduction to the code and the instructions to install  and run the code. This new version of the code was introduced in the paper MGCAMB with massive neutrinos and dynamical dark energy
+This is the official repository for the MGCAMB v3.0 patch.  Below there are an introduction to the code and the instructions to install  and run the code. This new version of the code was introduced in the paper MGCAMB with massive neutrinos and dynamical Dark Energy (DE)
 
 
 
@@ -77,6 +77,11 @@ make
 
 
 ## What's new
+With these new version of the code we implemented consistently massive neutrinos. 
+
+Also, the code has been checked and restructured and updated to the CAMB 2018 version. 
+
+The MG and DE parametrizations along with the computation of the quantities related to the perturbations are introduced in the file [``` mgcamb.f90 ```](mgcamb.f90).
 
 ## Examples
 
