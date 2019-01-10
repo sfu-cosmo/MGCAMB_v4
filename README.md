@@ -3,16 +3,17 @@
 This is the official repository for the MGCAMB v3.0 patch.  Below there are an introduction to the code and the instructions to install 
 
 ## Table of contents
-*[Introduction](#intro)
-   *[Strucutre of the code]
+*[Introduction](#introduction)
+   *[Structure of the code](#structure-of-the-code)
+   *[Consistency of the code]
    *[Referencing MGCAMB](#referencing)
 *[How to install](#how-to-install)
 *[How to run](#how-to-run)
-   *[Run the code](#run-code)
-   *[Run the test suite](#run-tests)
+   *[Run the code](#run-the-code)
+   *[Run the test suite](#run-the-test-tests)
 *[What's new](#whats-new)
 *[Examples](#examples)
-*[Authors List](#author-list)
+*[Authors List](#authors-list)
 
 
 ## Introduction
@@ -25,6 +26,10 @@ The new MGCAMB patch is structured as in the figure.
 <p align="center">
 <img src="img/MGCAMB_flowchart.png" width="1000" title="MGCAMB code structure" />
 </p>
+
+
+### Consistency of the code
+The General Relativity (GR) limit of the code has been tested 
 
 ### Referencing MGCAMB
 If you use MGCAMB for your scientific work, please cite the following papers.
@@ -42,9 +47,18 @@ make camb
 ### Run the code
 To run MGCAMB, first modify the  ``` params_MG.ini ``` file. Then run
 
+```bash
+./camb params_MG.ini
+```
+
 
 ### Run the test suite
-If you want to run the test suite, to produce the consistency plots in our paper
+If you want to run the test suite to produce the consistency plots in our paper, then run
+
+```bash
+cd mgcamb_tests
+
+```
 
 
 ## What's new
