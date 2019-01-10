@@ -17,7 +17,9 @@ This is the official repository for the MGCAMB v3.0 patch.  Below there are an i
 
 
 ## Introduction
-Modified Growth with CAMB (MGCAMB) is a patch for the Einstein Boltzmann solver CAMB that intrdouces phenomenological modifications of growth along with dynamical Dark Energy. It includes several phenomenological parametrization 
+Modified Growth with CAMB (MGCAMB) is a patch for the Einstein Boltzmann solver CAMB that intrdouces phenomenological modifications of growth along with dynamical Dark Energy. It includes several phenomenological parametrization
+
+- 
 
 
 ### Structure of the code
@@ -29,11 +31,13 @@ The new MGCAMB patch is structured as in the figure.
 
 
 ### Consistency of the code
-The General Relativity (GR) limit of the code has been tested. The results are shown in the figure below
+The General Relativity (GR) limit of the code has been tested. The results are shown in the figure below.
 
 <p align="center">
-<img src="mgcamb_tests/python/cls_mpk_consistency_max.pdf" width="1000" title="MGCAMB consistency" />
+<img src="img/cls_mpk_consistency_max.png" width="1000" title="MGCAMB consistency" />
 </p>
+
+When the switch to MG is set at early times, the 
 
 ### Referencing MGCAMB
 If you use MGCAMB for your scientific work, please cite the following papers.
