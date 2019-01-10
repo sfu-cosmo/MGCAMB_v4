@@ -1,7 +1,3 @@
-<p align="center">
-<img src="img/background4.jpg" width="1000" title="MGCAMB code structure" />
-</p>
-
 # MGCAMB v3.0
 ## Modified Growth with CAMB
 This is the official repository for the MGCAMB v3.0 patch.  Below there are an introduction to the code and the instructions to install  and run the code. This new version of the code was introduced in the paper MGCAMB with massive neutrinos and dynamical Dark Energy (DE)
