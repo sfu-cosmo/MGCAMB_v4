@@ -36,7 +36,7 @@ The parameters in  [``` params_MG.ini ``` ](params_MG.ini) are used to run the c
 Please, note that dynamical DE is supported in the ``` pure_MG_models ```. 
 
 ### Consistency of the code
-The General Relativity (GR) limit of the code has been tested. The results are shown in the figure below.
+The General Relativity (GR) limit of the code has been tested. The results below show the maximum error obtained in the CMB TT spectrum and matter power spectrum when using the MG equations (in the GR limit) to evolve the system:
 
 <p align="center">
 <img src="img/cls_mpk_consistency_max.png" width="750" title="MGCAMB consistency" />
@@ -47,6 +47,20 @@ When the switch to MG is set at early times, the matter power spectrum systemati
 <p align="center">
 <img src="img/mpk_offset.png" width="500" title="MGCAMB mpk" />
 </p>
+
+The systematics errors of the code can be controlled by increasing the parameter ``` accuracy_boost ```  in [``` params.ini```](params.ini). By setting ``` accuracy_boost=1.5 ``` the systematic error in the matter power spectrum reduces to approximately 0.2% at the price of slowing down the code of about 1.5-2 times.
+
+<p align="center">
+<img src="img/cls_mpk_consistency_max_1p5.png" width="750" title="MGCAMB consistency" />
+</p>
+
+The systematic error in the matter power spectrum can be reduced to approximately 0.1% by further increasing ``` accuracy_boost ```  to ``` accuracy_boost=2.0 ```. This slows the code down about 2-3 times. The results are shown below:
+
+<p align="center">
+<img src="img/cls_mpk_consistency_max_2p0.png" width="750" title="MGCAMB consistency" />
+</p>
+
+
 
 ### Referencing MGCAMB
 If you use MGCAMB for your scientific work, please cite the following papers.
