@@ -21,18 +21,18 @@ Modified Growth with CAMB (MGCAMB) is a patch for the Einstein Boltzmann solver 
 
 - the mu, gamma parametrization, defined as
 <p align="center">
-<img src="img/mu_gamma.png" width="500" title="mu gamma parametrization" />
+<img src="img/mu_gamma.png" width="300" title="mu gamma parametrization" />
 </p>
 - the mu, Sigma parametrization, defined as
 <p align="center">
-<img src="img/mu_sigma.png" width="500" title="mu sigma parametrization" />
+<img src="img/mu_sigma.png" width="300" title="mu sigma parametrization" />
 </p>
 - the Q,R parametrization, defined as
 <p align="center">
-<img src="img/q_r.png" width="500" title="Q R parametrization" />
+<img src="img/q_r.png" width="300" title="Q R parametrization" />
 </p>
 
-MGCAMB is implemented in the latest version of [CosmoMC](). The MGCosmoMC code can be found on this [repository]()
+MGCAMB is implemented in the latest version of [CosmoMC](https://github.com/cmbant/CosmoMC). The MGCosmoMC code can be found on this [repository](https://github.com/sfu-cosmo/MGCosmoMC)
 
 ### Structure of the code
 The new MGCAMB patch is structured as in the figure.
