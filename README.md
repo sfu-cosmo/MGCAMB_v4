@@ -74,7 +74,7 @@ If you use MGCAMB for your scientific work, please cite the following papers:
     [arXiv:0809.3791 [astro-ph]](http://arxiv.org/abs/0809.3791), [Phys. Rev. D 79, 083513](https://journals.aps.org/prd/abstract/10.1103/PhysRevD.79.083513)
 
 
-as well as the original CAMB [paper](http://arxiv.org/abs/astro-ph/9911177).
+as well as the original CAMB [paper](http://arxiv.org/abs/astro-ph/9911177). A the file  [``` MGCAMB_references.bib```](mgcamb_notes/MGCAMB_references) contains  all the references mentioned above.
 
 ## 2. How to install
 To install MGCAMB in your machine simply run
