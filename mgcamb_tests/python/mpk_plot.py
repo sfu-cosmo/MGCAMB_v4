@@ -35,7 +35,7 @@ delta_mpk = (mpk[:,1] - mpkGR[:,1])/mpkGR[:,1]
 plt.semilogx(mpk[:,0], delta_mpk)
 plt.xlabel(r'$k$ [h / Mpc]')
 plt.ylabel(r'$\Delta P(k) / P(k)^{\rm CAMB}$')
-plt.ylim(-1e-2,1e-2)
+plt.ylim(-2e-3,2e-3)
 plt.xlim(1e-4,1)
 pil.savefig('mpk_offset.pdf', bbox_inches = 'tight')
 plt.show()

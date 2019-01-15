@@ -102,7 +102,7 @@ alphas      = cycle(alphas_list)
 
 # first panel (CMB temperatures fluctuations)
 ax1         = plt.subplot(1,2,1)
-
+print('Cls err:')
 for (i, m, a) in zip(range(len(grtrans_list)),markers, alphas):
     
     this_error = []
@@ -110,15 +110,21 @@ for (i, m, a) in zip(range(len(grtrans_list)),markers, alphas):
     
     for j in range(len(mnu_list)):
         #this_error.append(cls_error_list[j][i])
-        this_error.append(cls_max_list[j][i])
+        if (cls_max_list[j][i] < 1e-7 ):
+            this_error.append(1e-7)
+        else:
+            this_error.append(cls_max_list[j][i])
         this_std.append(cls_stdev_list[j][i])
     
     ax1.semilogy(mnu_list, this_error, marker = m, linestyle = '', color = colors[i], label = r'$a_{\rm trans}$ = '+str(grtrans_list[i]))
     #ax1.semilogy(mnu_list, this_error, marker = m, linestyle = '', color = 'black', label = r'$a_{\rm trans}$ = '+str(grtrans_list[i]), alpha = a)
+    print('grtrans',grtrans_list[i])
+    for (mnu,err) in zip(mnu_list, this_error):
+        print('mnu: {:.5e},  err: {:.5e}'.format(mnu, err))
 
-ax1.legend(bbox_to_anchor=(1.6, -0.15), ncol=3)
+ax1.legend(bbox_to_anchor=(0.5, -0.25), ncol=3, loc='center left')
 ax1.set_xlim(0,0.55)
-ax1.set_ylim(1e-6,1e-3)
+#.set_ylim(1e-7,1e-4)
 ax1.set_xlabel(r'$m_{\nu}$ [eV]')
 ax1.set_ylabel(r'$\max | \Delta C_{\ell} / C_{\ell}^{\rm CAMB} | $')
 
@@ -127,6 +133,7 @@ ax2     = plt.subplot(1,2,2)
 markers = cycle(marker_list)
 alphas  = cycle(alphas_list)
 
+print('P(k) err:')
 for (i, m, a) in zip(range(len(grtrans_list)),markers, alphas):
     
     this_error = []
@@ -140,14 +147,20 @@ for (i, m, a) in zip(range(len(grtrans_list)),markers, alphas):
     ax2.semilogy(mnu_list, this_error,  marker = m, linestyle = '', color = colors[i], label = r'$a_{\rm trans}$ = '+str(grtrans_list[i]))
     #ax2.semilogy(mnu_list, this_error,  marker = m, linestyle = '', color = 'black', label = r'$a_{\rm trans}$ = '+str(grtrans_list[i]), alpha = a)
 
+    print('grtrans',grtrans_list[i])
+    for (mnu,err) in zip(mnu_list, this_error):
+        print('mnu: {:.5e},  err: {:.5e}'.format(mnu, err))
+
+
 ax2.set_xlim(0,0.55)
 ax2.set_xlabel(r'$m_{\nu}$ [eV]')
 ax2.set_ylabel(r'$ \max | \Delta P(k) / P(k)^{\rm CAMB} |  $')
-ax2.set_ylim(1e-5,1e-2)
+#ax2.set_ylim(1e-6,1e-2)
 
 
 # save figure
 pil.savefig('cls_mpk_consistency_max.pdf', bbox_inches='tight')
+#pil.savefig('cls_mpk_consistency_max.png', bbox_inches='tight')
 
 
 

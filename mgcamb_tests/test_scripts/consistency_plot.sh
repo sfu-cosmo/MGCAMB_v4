@@ -36,6 +36,7 @@ SUCCESS=true
 
 printf "  Making plots "
 python ./consistency_plots.py  &> $RESULTS_LOGS/consistency_plots.log
+python ./mpk_plot.py  &> $RESULTS_LOGS/mpk_plot.log
 
 # check if run succeded:
 if [ $? -eq 0 ]; then

@@ -346,10 +346,10 @@
     if (DoLateRadTruncation) then
     !< MGCAMB MOD END
         if (.not. EV%no_nu_multpoles) & !!.and. .not. EV%has_nu_relativistic .and. tau_switch_nu_massless ==noSwitch)  &
-            tau_switch_no_nu_multpoles=max(15/EV%k_buf*AccuracyBoost,min(taurend,matter_verydom_tau))
+            tau_switch_no_nu_multpoles=max(15/EV%k_buf*20._dl*AccuracyBoost,min(taurend,matter_verydom_tau))
 
-        if (.not. EV%no_phot_multpoles .and. (.not.CP%WantCls .or. EV%k_buf>0.03*AccuracyBoost)) &
-            tau_switch_no_phot_multpoles =max(15/EV%k_buf,taurend)*AccuracyBoost
+        if (.not. EV%no_phot_multpoles .and. (.not.CP%WantCls .or. EV%k_buf>0.03*20._dl*AccuracyBoost)) &
+            tau_switch_no_phot_multpoles =max(15/EV%k_buf,taurend)*AccuracyBoost*20._dl
     end if
 
     next_switch = min(tau_switch_ktau, tau_switch_nu_massless,EV%TightSwitchoffTime, tau_switch_nu_massive, &

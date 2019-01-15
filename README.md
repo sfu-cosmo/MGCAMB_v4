@@ -3,7 +3,6 @@
 This is the official repository for the MGCAMB v3.0 patch.  Below there are an introduction to the code and the instructions to install  and run the code. This new version of the code was introduced in the paper MGCAMB with massive neutrinos and dynamical Dark Energy (DE)
 
 
-
 ## Table of contents
 * [Introduction](#introduction)
    * [Structure of the code](#structure-of-the-code)
@@ -17,13 +16,23 @@ This is the official repository for the MGCAMB v3.0 patch.  Below there are an i
 * [Examples](#examples)
 *  [Authors List](#authors-list)
 
-
 ## Introduction
 Modified Growth with CAMB (MGCAMB) is a patch for the Einstein Boltzmann solver [CAMB](https://github.com/cmbant/CAMB) that intrdouces phenomenological Modifications of Growth (MG) along with dynamical Dark Energy (DE). It includes several phenomenological parametrizations. For instance:
 
-- the mu, gamma parametrization
-- the mu, Sigma parametrization
-- the Q,R parametrization
+- the mu, gamma parametrization, defined as
+<p align="center">
+<img src="img/mu_gamma.png" width="500" title="mu gamma parametrization" />
+</p>
+- the mu, Sigma parametrization, defined as
+<p align="center">
+<img src="img/mu_sigma.png" width="500" title="mu sigma parametrization" />
+</p>
+- the Q,R parametrization, defined as
+<p align="center">
+<img src="img/q_r.png" width="500" title="Q R parametrization" />
+</p>
+
+MGCAMB is implemented in the latest version of [CosmoMC](). The MGCosmoMC code can be found on this [repository]()
 
 ### Structure of the code
 The new MGCAMB patch is structured as in the figure.
@@ -42,29 +51,13 @@ The General Relativity (GR) limit of the code has been tested. The results below
 <img src="img/cls_mpk_consistency_max.png" width="750" title="MGCAMB consistency" />
 </p>
 
-When the switch to MG is set at early times, the matter power spectrum systematic error increase at values slightly below 1%. Below there is an example of the relative differences between the GR limit of MGCAMB and the default CAMB for a neutrinos mass of 0.05 eV and a transition time ```GRtrans ```  = 0.001. 
-
-<p align="center">
-<img src="img/mpk_offset.png" width="500" title="MGCAMB mpk" />
-</p>
-
-The systematics errors of the code can be controlled by increasing the parameter ``` accuracy_boost ```  in [``` params.ini```](params.ini). By setting ``` accuracy_boost=1.5 ``` the systematic error in the matter power spectrum reduces to approximately 0.2% at the price of slowing down the code of about 1.5-2 times.
-
-<p align="center">
-<img src="img/cls_mpk_consistency_max_1p5.png" width="750" title="MGCAMB consistency" />
-</p>
-
-The systematic error in the matter power spectrum can be reduced to approximately 0.1% by further increasing ``` accuracy_boost ```  to ``` accuracy_boost=2.0 ```. This slows the code down about 2-3 times. The results are shown below:
-
-<p align="center">
-<img src="img/cls_mpk_consistency_max_2p0.png" width="750" title="MGCAMB consistency" />
-</p>
-
+For all ``` GRtrans ``` times, the systematic maximum error is below 0.1%. This is achieved by delaying the time at which the Radiation Streaming Approximation (RSA) is switched on. The maximum error on the 
 
 
 ### Referencing MGCAMB
 If you use MGCAMB for your scientific work, please cite the following papers.
-- [ Testing Gravity with CAMB and CosmoMC](https://arxiv.org/abs/1106.4543)
+- [MGCAMB with massive neutrinos and dynamical dark energy]()
+- [Testing Gravity with CAMB and CosmoMC](https://arxiv.org/abs/1106.4543)
 - [Searching for modified growth patterns with tomographic surveys](http://arxiv.org/abs/0809.3791)
 
 as well as the original CAMB [paper](http://arxiv.org/abs/astro-ph/9911177).
@@ -80,7 +73,7 @@ make camb
 ## How to run
 
 ### Run the code
-To run MGCAMB, first modify the  [``` params_MG.ini ``` ](params_MG.ini) file. Then run
+To run MGCAMB, first modify the  [``` params_MG.ini ``` ](params_MG.ini) file according to which models you want to analyze. Then run
 
 ```bash
 ./camb params_MG.ini
@@ -97,13 +90,15 @@ make
 
 
 ## What's new
-With these new version of the code we implemented consistently massive neutrinos. 
+With these new version of the code we implemented consistently massive neutrinos, see accuracy plots above, and dynamical dark energy. 
 
 Also, the code has been checked and restructured and updated to the CAMB 2018 version. 
 
 The MG and DE parametrizations along with the computation of the quantities related to the perturbations are introduced in the file [``` mgcamb.f90 ```](mgcamb.f90).
 
 ## Examples
+
+
 
 ## Authors List
 Main Developer:
@@ -116,7 +111,7 @@ Original Code Developers:
 - [Levon Pogosian](http://www.sfu.ca/%7Elevon/)
 
 
-Repo created and maintained by Alex Zucca. If you find any bugs in the code, please contact Alex Zucca at azucca@sfu.ca .
+Repo created and maintained by [Alex Zucca](https://github.com/alexzucca90). If you find any bugs in the code, please contact Alex Zucca at azucca@sfu.ca .
 
 <p align="center">
     <a href="http://www.sfu.ca/physics.html"><img src="https://pbs.twimg.com/profile_images/966810928669802496/LVqOwtsx_400x400.jpg" height="170px"></a>

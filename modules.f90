@@ -2520,7 +2520,10 @@
                 columns = ['P   ', 'P_vd','P_vv']
                 unit = open_file_header(FileNames(itf), 'k/h', columns(:ncol), 15)
                 do i=1,points
-                    write (unit, '(*(E15.6))') MTrans%TransferData(Transfer_kh,i,1),outpower(i,1:CP%InitPower%nn,:)
+                    !> MGCAMB MOD START: increasing number of decimal points for accuracy tests
+                    !write (unit, '(*(E15.6))') MTrans%TransferData(Transfer_kh,i,1),outpower(i,1:CP%InitPower%nn,:)
+                    write (unit, '(*(E15.8))') MTrans%TransferData(Transfer_kh,i,1),outpower(i,1:CP%InitPower%nn,:)
+                    !< MGCAMB MOD END
                 end do
                 close(unit)
             else
@@ -2537,7 +2540,10 @@
                 unit = open_file_header(FileNames(itf), 'k/h', columns(:1), 15)
 
                 do i=1,points
-                    write (unit, '(*(E15.6))') minkh*exp((i-1)*dlnkh),outpower(i,1:CP%InitPower%nn,1)
+                    !> MGCAMB MOD START: increasing number of decimal points for accuracy tests
+                    !write (unit, '(*(E15.6))') minkh*exp((i-1)*dlnkh),outpower(i,1:CP%InitPower%nn,1)
+                    write (unit, '(*(E15.8))') minkh*exp((i-1)*dlnkh),outpower(i,1:CP%InitPower%nn,1)
+                    !< MGCAMB MOD END
                 end do
                 close(unit)
             end if
