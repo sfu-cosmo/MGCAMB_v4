@@ -16,7 +16,7 @@ This is the official repository for the MGCAMB v3.0 patch.  Below there are an i
 * [Examples](#examples)
 *  [Authors List](#authors-list)
 
-## Introduction
+## 1. Introduction
 Modified Growth with CAMB (MGCAMB) is a patch for the Einstein Boltzmann solver [CAMB](https://github.com/cmbant/CAMB) that intrdouces phenomenological Modifications of Growth (MG) along with dynamical Dark Energy (DE). It includes several phenomenological parametrizations. For instance:
 
 - the mu, gamma parametrization, defined as
