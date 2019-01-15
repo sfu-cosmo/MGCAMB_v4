@@ -4,17 +4,17 @@ This is the official repository for the MGCAMB v3.0 patch.  Below there are an i
 
 
 ## Table of contents
-* [Introduction](#introduction)
+* [1. Introduction](#1-introduction)
    * [Structure of the code](#structure-of-the-code)
    * [Consistency of the code](#consistency-of-the-code)
    * [Referencing MGCAMB](#referencing-mgcamb)
-* [How to install](#how-to-install)
-* [How to run](#how-to-run)
+* [2. How to install](#2-how-to-install)
+* [3. How to run](#3-how-to-run)
    * [Run the code](#run-the-code)
    * [Run the test suite](#run-the-test-suite)
-* [What's new](#whats-new)
-* [Examples](#examples)
-*  [Authors List](#authors-list)
+* [4. What's new](#4-whats-new)
+* [5. Examples](#examples)
+* [6. Authors List](#authors-list)
 
 ## 1. Introduction
 Modified Growth with CAMB (MGCAMB) is a patch for the Einstein Boltzmann solver [CAMB](https://github.com/cmbant/CAMB) that intrdouces phenomenological Modifications of Growth (MG) along with dynamical Dark Energy (DE). It includes several phenomenological parametrizations. For instance:
@@ -64,7 +64,7 @@ If you use MGCAMB for your scientific work, please cite the following papers.
 
 as well as the original CAMB [paper](http://arxiv.org/abs/astro-ph/9911177).
 
-## How to install
+## 2. How to install
 To install MGCAMB in your machine simply run
 ```bash
 git clone https://github.com/sfu-cosmo/MGCAMB.git
@@ -72,7 +72,7 @@ cd MGCAMB
 make camb
 ```
 
-## How to run
+## 3. How to run
 
 ### Run the code
 To run MGCAMB, first modify the  [``` params_MG.ini ``` ](params_MG.ini) file according to which models you want to analyze. Then run
@@ -91,18 +91,18 @@ make
 ```
 
 
-## What's new
+## 4. What's new
 With these new version of the code we implemented consistently massive neutrinos, see accuracy plots above, and dynamical dark energy. 
 
 Also, the code has been checked and restructured and updated to the CAMB 2018 version. 
 
 The MG and DE parametrizations along with the computation of the quantities related to the perturbations are introduced in the file [``` mgcamb.f90 ```](mgcamb.f90).
 
-## Examples
+## 5. Examples
 
 
 
-## Authors List
+## 6. Authors List
 Main Developer:
 - [Alex Zucca](https://www.sfu.ca/physics/people/profiles/azucca.html) Email: azucca@sfu.ca
 
