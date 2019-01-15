@@ -7,7 +7,7 @@ This is the official repository for the MGCAMB v3.0 patch.  Below there are an i
 * [1. Introduction](#1-introduction)
    * [Structure of the code](#structure-of-the-code)
    * [Consistency of the code](#consistency-of-the-code)
-   * [Referencing MGCAMB](#referencing-mgcamb)
+   * [Referencing MGCAMB](#citing-mgcamb)
 * [2. How to install](#2-how-to-install)
 * [3. How to run](#3-how-to-run)
    * [Run the code](#run-the-code)
@@ -56,11 +56,19 @@ The General Relativity (GR) limit of the code has been tested. The results below
 For all ``` GRtrans ``` times, the systematic maximum error is below 0.1%. This is achieved by delaying the time at which the Radiation Streaming Approximation (RSA) is switched on. The maximum error on the 
 
 
-### Referencing MGCAMB
-If you use MGCAMB for your scientific work, please cite the following papers.
-- [MGCAMB with massive neutrinos and dynamical dark energy]()
-- [Testing Gravity with CAMB and CosmoMC](https://arxiv.org/abs/1106.4543)
-- [Searching for modified growth patterns with tomographic surveys](http://arxiv.org/abs/0809.3791)
+### Citing MGCAMB
+If you use MGCAMB for your scientific work, please cite the following papers:
+
+- *MGCAMB with massive neutrinos and dynamical dark energy*
+    Alex Zucca, Levon Pogosian, Alessandra Silvestri, and Gong-Bo Zhao
+    
+- *Testing Gravity with CAMB and CosmoMC*
+    Alireza Hojjati, Levon Pogosian, Gong-Bo Zhao
+    [arXiv:1106.4543 [astro-ph.CO]](https://arxiv.org/abs/1106.4543)[JCAP 1108:005,2011](http://iopscience.iop.org/article/10.1088/1475-7516/2011/08/005)
+    
+- *Searching for modified growth patterns with tomographic surveys*
+    Gong-Bo Zhao, Levon Pogosian, Alessandra Silvestri, Joel Zylberberg
+    [arXiv:0809.3791 [astro-ph]](http://arxiv.org/abs/0809.3791) [Phys. Rev. D 79, 083513](https://journals.aps.org/prd/abstract/10.1103/PhysRevD.79.083513)
 
 as well as the original CAMB [paper](http://arxiv.org/abs/astro-ph/9911177).
 
