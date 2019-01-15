@@ -64,12 +64,12 @@ If you use MGCAMB for your scientific work, please cite the following papers:
     Alex Zucca, Levon Pogosian, Alessandra Silvestri, and Gong-Bo Zhao
     
     
-* *Testing Gravity with CAMB and CosmoMC*
+* *Testing Gravity with CAMB and CosmoMC*  
     Alireza Hojjati, Levon Pogosian, Gong-Bo Zhao,
     [arXiv:1106.4543 [astro-ph.CO]](https://arxiv.org/abs/1106.4543), [JCAP 1108:005,2011](http://iopscience.iop.org/article/10.1088/1475-7516/2011/08/005)
     
     
-* *Searching for modified growth patterns with tomographic surveys*
+* *Searching for modified growth patterns with tomographic surveys*  
     Gong-Bo Zhao, Levon Pogosian, Alessandra Silvestri, Joel Zylberberg
     [arXiv:0809.3791 [astro-ph]](http://arxiv.org/abs/0809.3791), [Phys. Rev. D 79, 083513](https://journals.aps.org/prd/abstract/10.1103/PhysRevD.79.083513)
 
