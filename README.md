@@ -54,7 +54,7 @@ The General Relativity (GR) limit of the code has been tested. The results below
 <img src="img/cls_mpk_consistency_max.png" width="750" title="MGCAMB consistency" />
 </p>
 
-For all ``` GRtrans ``` times, the systematic maximum error is below 0.1%. This is achieved by delaying the time at which the Radiation Streaming Approximation (RSA) is switched on. The maximum error on the 
+For all  ``` GRtrans ``` times, the systematic maximum error is below 0.1%. This is achieved by delaying the time at which the Radiation Streaming Approximation (RSA) is switched on.  This slows down MGCAMB code with respect to the default CAMB code by a factor of two.
 
 
 ### Citing MGCAMB
@@ -120,9 +120,10 @@ Main Developer:
 
 Original Code Developers:
 - [Gong-Bo Zhao](http://icosmology.info)
-- [Alireza Hojjati](http://www.phas.ubc.ca/%7Eahojjati/index.html)
-- [Alessandra Silvestri](http://wwwhome.lorentz.leidenuniv.nl/%7Esilvestri/Home.html)
 - [Levon Pogosian](http://www.sfu.ca/%7Elevon/)
+- [Alessandra Silvestri](http://wwwhome.lorentz.leidenuniv.nl/%7Esilvestri/Home.html)
+- [Alireza Hojjati](http://www.phas.ubc.ca/%7Eahojjati/index.html)
+
 
 
 Repo created and maintained by [Alex Zucca](https://github.com/alexzucca90). If you find any bugs in the code, please contact Alex Zucca at azucca@sfu.ca .
