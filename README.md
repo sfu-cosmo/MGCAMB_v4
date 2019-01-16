@@ -119,10 +119,10 @@ Main Developer:
 - [Alex Zucca](https://www.sfu.ca/physics/people/profiles/azucca.html) Email: azucca@sfu.ca
 
 Original Code Developers:
-- [Gong-Bo Zhao](http://icosmology.info)
-- [Levon Pogosian](http://www.sfu.ca/%7Elevon/)
-- [Alessandra Silvestri](http://wwwhome.lorentz.leidenuniv.nl/%7Esilvestri/Home.html)
-- [Alireza Hojjati](http://www.phas.ubc.ca/%7Eahojjati/index.html)
+* [Gong-Bo Zhao](http://icosmology.info)
+* [Alireza Hojjati](http://www.phas.ubc.ca/%7Eahojjati/index.html)
+* [Levon Pogosian](http://www.sfu.ca/%7Elevon/)
+* [Alessandra Silvestri](http://wwwhome.lorentz.leidenuniv.nl/%7Esilvestri/Home.html)
 
 
 
