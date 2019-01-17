@@ -1,14 +1,14 @@
 MGCAMB v3.0
 ===========
 ## Modified Growth with CAMB
-This is the official repository for the MGCAMB v3.0 patch.  Below there are an introduction to the code and the instructions to install  and run the code. This new version of the code was introduced in the paper MGCAMB with massive neutrinos and dynamical Dark Energy (DE)
+This is the official repository for the MGCAMB v3.0 patch.  Below there are an introduction to the code and the instructions to install  and run the code. This new version of the code was introduced in the paper *MGCAMB with massive neutrinos and dynamical Dark Energy* (DE)
 
 
 ## Table of contents
 * [1. Introduction](#1-introduction)
    * [Structure of the code](#structure-of-the-code)
    * [Consistency of the code](#consistency-of-the-code)
-   * [Referencing MGCAMB](#citing-mgcamb)
+   * [Citing MGCAMB](#citing-mgcamb)
 * [2. How to install](#2-how-to-install)
 * [3. How to run](#3-how-to-run)
    * [Run the code](#run-the-code)
