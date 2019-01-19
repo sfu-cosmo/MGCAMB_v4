@@ -62,6 +62,7 @@ If you use MGCAMB for your scientific work, please cite the following papers:
 
 * *MGCAMB with massive neutrinos and dynamical dark energy*   
     Alex Zucca, Levon Pogosian, Alessandra Silvestri, and Gong-Bo Zhao
+    [arXiv:1901.05956 [astro-ph.CO]](https://arxiv.org/abs/1901.05956)
     
     
 * *Testing Gravity with CAMB and CosmoMC*  
