@@ -91,7 +91,7 @@ make camb
 To run MGCAMB, first modify the  [``` params_MG.ini ``` ](params_MG.ini) file according to which models you want to analyze. Then run
 
 ```bash
-./camb params_MG.ini
+./camb params.ini
 ```
 
 
