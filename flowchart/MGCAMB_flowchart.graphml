@@ -20,7 +20,7 @@
           <y:Geometry height="45.04417614410883" width="197.56095059132448" x="208.3353197132334" y="168.95582385589117"/>
           <y:Fill hasColor="false" transparent="false"/>
           <y:BorderStyle color="#00CCFF" type="line" width="3.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="32.265625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="179.576171875" x="8.992389358162228" y="6.389275572054402">MGCAMB Structure
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="32.265625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="179.576171875" x="8.992389358162256" y="6.389275572054402">MGCAMB Structure
 (main MGCAMB Flag: MG_flag)
 <y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
@@ -254,7 +254,7 @@ MG functions
           <y:Geometry height="30.0" width="10.0" x="1019.9815605511338" y="421.4832610023135"/>
           <y:Fill hasColor="false" transparent="false"/>
           <y:BorderStyle hasColor="false" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="109.884765625" x="-81.40509628502627" y="-9.06640625">model parameters<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="109.884765625" x="-81.40509628502616" y="-9.06640625">model parameters<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -354,6 +354,7 @@ default CAMB
           <y:Geometry height="10.0" width="10.0" x="928.5" y="4.709570825672074"/>
           <y:Fill hasColor="false" transparent="false"/>
           <y:BorderStyle hasColor="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="3.0" y="3.0"/>
         </y:GenericNode>
       </data>
     </node>
@@ -461,6 +462,7 @@ default CAMB
           <y:Geometry height="10.0" width="10.0" x="928.5" y="244.0"/>
           <y:Fill hasColor="false" transparent="false"/>
           <y:BorderStyle hasColor="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="3.0" y="3.0"/>
         </y:GenericNode>
       </data>
     </node>
@@ -486,7 +488,8 @@ default CAMB
           <y:Geometry height="10.0" width="1.0" x="994.4383466638117" y="61.63106797561588"/>
           <y:Fill hasColor="false" transparent="false"/>
           <y:BorderStyle hasColor="false" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="137.6875" x="-67.84375" y="-22.1328125">1: DES parametrization<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="32.265625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="113.51171875" x="-55.755859375" y="-36.265625">1: DES / CFHtLens 
+parametrization<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -513,7 +516,6 @@ default CAMB
       </data>
     </node>
     <node id="n31">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="1.0" width="1.0" x="1176.5361021366489" y="116.13106797561588"/>
@@ -754,7 +756,6 @@ default CAMB
       </data>
     </edge>
     <edge id="e18" source="n0" target="n16">
-      <data key="d9"/>
       <data key="d10">
         <y:QuadCurveEdge straightness="0.1">
           <y:Path sx="16.9628983741365" sy="-22.532196400928" tx="0.0" ty="0.0">
@@ -766,7 +767,6 @@ default CAMB
       </data>
     </edge>
     <edge id="e19" source="n1" target="n17">
-      <data key="d9"/>
       <data key="d10">
         <y:QuadCurveEdge straightness="0.1">
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -779,7 +779,6 @@ default CAMB
       </data>
     </edge>
     <edge id="e20" source="n3" target="n18">
-      <data key="d9"/>
       <data key="d10">
         <y:QuadCurveEdge straightness="0.1">
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -792,7 +791,6 @@ default CAMB
       </data>
     </edge>
     <edge id="e21" source="n3" target="n19">
-      <data key="d9"/>
       <data key="d10">
         <y:QuadCurveEdge straightness="0.1">
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -805,7 +803,6 @@ default CAMB
       </data>
     </edge>
     <edge id="e22" source="n6" target="n21">
-      <data key="d9"/>
       <data key="d10">
         <y:QuadCurveEdge straightness="0.1">
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -815,7 +812,6 @@ default CAMB
       </data>
     </edge>
     <edge id="e23" source="n6" target="n22">
-      <data key="d9"/>
       <data key="d10">
         <y:QuadCurveEdge straightness="0.1">
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -828,7 +824,6 @@ default CAMB
       </data>
     </edge>
     <edge id="e24" source="n3" target="n24">
-      <data key="d9"/>
       <data key="d10">
         <y:QuadCurveEdge straightness="0.1">
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -841,7 +836,6 @@ default CAMB
       </data>
     </edge>
     <edge id="e25" source="n5" target="n25">
-      <data key="d9"/>
       <data key="d10">
         <y:QuadCurveEdge straightness="0.1">
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -854,7 +848,6 @@ default CAMB
       </data>
     </edge>
     <edge id="e26" source="n5" target="n26">
-      <data key="d9"/>
       <data key="d10">
         <y:QuadCurveEdge straightness="0.1">
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -867,7 +860,6 @@ default CAMB
       </data>
     </edge>
     <edge id="e27" source="n5" target="n28">
-      <data key="d9"/>
       <data key="d10">
         <y:QuadCurveEdge straightness="0.1">
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -880,7 +872,6 @@ default CAMB
       </data>
     </edge>
     <edge id="e28" source="n4" target="n29">
-      <data key="d9"/>
       <data key="d10">
         <y:QuadCurveEdge straightness="0.1">
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -893,7 +884,6 @@ default CAMB
       </data>
     </edge>
     <edge id="e29" source="n4" target="n30">
-      <data key="d9"/>
       <data key="d10">
         <y:QuadCurveEdge straightness="0.1">
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -906,7 +896,6 @@ default CAMB
       </data>
     </edge>
     <edge id="e30" source="n18" target="n31">
-      <data key="d9"/>
       <data key="d10">
         <y:QuadCurveEdge straightness="0.1">
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -919,7 +908,6 @@ default CAMB
       </data>
     </edge>
     <edge id="e31" source="n19" target="n31">
-      <data key="d9"/>
       <data key="d10">
         <y:QuadCurveEdge straightness="0.1">
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -932,7 +920,6 @@ default CAMB
       </data>
     </edge>
     <edge id="e32" source="n29" target="n31">
-      <data key="d9"/>
       <data key="d10">
         <y:QuadCurveEdge straightness="0.1">
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -945,7 +932,6 @@ default CAMB
       </data>
     </edge>
     <edge id="e33" source="n25" target="n31">
-      <data key="d9"/>
       <data key="d10">
         <y:QuadCurveEdge straightness="0.1">
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -958,7 +944,6 @@ default CAMB
       </data>
     </edge>
     <edge id="e34" source="n26" target="n31">
-      <data key="d9"/>
       <data key="d10">
         <y:QuadCurveEdge straightness="0.1">
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -971,7 +956,6 @@ default CAMB
       </data>
     </edge>
     <edge id="e35" source="n31" target="n15">
-      <data key="d9"/>
       <data key="d10">
         <y:QuadCurveEdge straightness="0.1">
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -984,7 +968,6 @@ default CAMB
       </data>
     </edge>
     <edge id="e36" source="n31" target="n23">
-      <data key="d9"/>
       <data key="d10">
         <y:QuadCurveEdge straightness="0.1">
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -997,7 +980,6 @@ default CAMB
       </data>
     </edge>
     <edge id="e37" source="n21" target="n32">
-      <data key="d9"/>
       <data key="d10">
         <y:QuadCurveEdge straightness="0.1">
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
