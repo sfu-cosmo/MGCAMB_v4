@@ -52,8 +52,8 @@
     real(dl):: om_m,om_v,fnu,omm0, acur, w_hf,wa_hf
 
     integer, parameter :: halofit_original = 1, halofit_bird=2, halofit_peacock=3, halofit_takahashi=4
-    integer, parameter :: halofit_mead=5, halofit_halomodel=6, halofit_casarini=7, halofit_mead2015=8
-    integer, parameter :: halofit_default = halofit_takahashi
+    integer, parameter :: halofit_mead=5, halofit_halomodel=6, halofit_casarini=7, halofit_mead2015=8, halofit_MG = 9
+    integer, parameter :: halofit_default = halofit_MG !MMmod
     integer :: halofit_version = halofit_default
     public Min_kh_nonlinear, NonLinear_GetNonLinRatios, NonLinear_ReadParams
     public halofit_version, halofit_default, halofit_original, halofit_bird, halofit_peacock, halofit_takahashi
@@ -97,12 +97,16 @@
     !Fill the CAMB_Pk%nonlin_scaling array with sqrt(non-linear power/linear power)
     !for each redshift and wavenumber
     !This implementation uses Halofit
+    use MGCAMB !MMmod
+    use FittingFormula
     type(MatterPowerData) :: CAMB_Pk
     integer itf
     real(dl) a,plin,pq,ph,pnl,rk
     real(dl) sig,rknl,rneff,rncur,d1,d2
     real(dl) diff,xlogr1,xlogr2,rmid
     integer i
+    !MMmod
+    real(dl) :: zz, ratio
 
     IF(halofit_version==halofit_mead .OR. halofit_version==halofit_halomodel .OR. halofit_version==halofit_mead2015) THEN
 
@@ -180,6 +184,12 @@
 
                     call halofit(rk,rneff,rncur,rknl,plin,pnl,pq,ph)   ! halo fitting formula
                     CAMB_Pk%nonlin_ratio(i,itf) = sqrt(pnl/plin)
+                    ! Apply MG enhancement !MMmod
+                    if (halofit_version == halofit_MG .and. F_R0>0) then
+                       zz = CAMB_Pk%Redshifts(itf)
+                       ratio = pofk_enhancement(zz,F_R0,rk)
+                       CAMB_Pk%nonlin_ratio(i,itf) = CAMB_Pk%nonlin_ratio(i,itf) * dsqrt(ratio)
+                    end if
 
                 end if
 
@@ -225,7 +235,7 @@
         xnu=10**(0.95897+1.2857*rn)
         alpha=1.38848+0.3701*rn-0.1452*rn*rn
         beta=0.8291+0.9854*rn+0.3400*rn**2+fnu*(-6.4868+1.4373*rn**2)
-    elseif (halofit_version == halofit_takahashi .or. halofit_version == halofit_casarini) then
+    elseif (halofit_version == halofit_takahashi .or. halofit_version == halofit_casarini .or. halofit_version==halofit_MG) then !MMmod
         !RT12 Oct: the halofit in Smith+ 2003 predicts a smaller power
         !than latest N-body simulations at small scales.
         !Update the following fitting parameters of gam,a,b,c,xmu,xnu,
