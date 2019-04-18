@@ -1078,7 +1078,7 @@
     integer, parameter :: C_Temp = 1, C_E = 2, C_Cross =3, C_Phi = 4, C_PhiTemp = 5, C_PhiE=6
     integer :: C_last = C_PhiE
     integer, parameter :: CT_Temp =1, CT_E = 2, CT_B = 3, CT_Cross=  4
-    integer, parameter :: name_tag_len = 12
+    integer, parameter :: name_tag_len = 13
     character(LEN=name_tag_len), dimension(C_PhiE), parameter :: C_name_tags = ['TT','EE','TE','PP','TP','EP']
     character(LEN=name_tag_len), dimension(CT_Cross), parameter :: CT_name_tags = ['TT','EE','BB','TE']
     character(LEN=name_tag_len), dimension(7), parameter :: lens_pot_name_tags = ['TT','EE','BB','TE','PP','TP','EP']
@@ -1776,12 +1776,13 @@
         ! total perturbations with and without neutrinos, with neutrinos+dark energy in the numerator
         Transfer_Weyl = 10, & ! the Weyl potential, for lensing and ISW
         Transfer_Newt_vel_cdm=11, Transfer_Newt_vel_baryon=12,   & ! -k v_Newtonian/H
-        Transfer_vel_baryon_cdm = 13 !relative velocity of baryons and CDM
+        Transfer_vel_baryon_cdm = 13,  & !relative velocity of baryons and CDM
+        Transfer_growth_rate = 14 !relative velocity of baryons and CDM
 
-    integer, parameter :: Transfer_max = Transfer_vel_baryon_cdm
+    integer, parameter :: Transfer_max = Transfer_growth_rate
     character(LEN=name_tag_len) :: Transfer_name_tags(Transfer_max-1) = &
         ['CDM     ', 'baryon  ', 'photon  ', 'nu      ', 'mass_nu ', 'total   ', &
-        'no_nu   ', 'total_de', 'Weyl    ', 'v_CDM   ', 'v_b     ', 'v_b-v_c ']
+        'no_nu   ', 'total_de', 'Weyl    ', 'v_CDM   ', 'v_b     ', 'v_b-v_c ', 'f_g     ']
 
     logical :: transfer_interp_matterpower  = .true. !output regular grid in log k
     !set to false to output calculated values for later interpolation

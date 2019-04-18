@@ -1841,6 +1841,7 @@
     integer l,i,ind, ind2, off_ix, ix
     real(dl) dgs,sigmadot,dz !, ddz
     real(dl) dgpi,dgrho_matter,grho_matter, clxnu, gpres_nu
+    real(dl) ddelta, delta, growth
     !non-flat vars
     real(dl) cothxor !1/tau in flat case
     !Variables for source calculation
@@ -2526,6 +2527,9 @@
             phi = (mgcamb_cache%MG_psi+mgcamb_cache%MG_phi)/2._dl
         end if
         !< MGCAMB MOD END
+            ddelta= (ayprime(3)*grhoc+ayprime(4)*grhob)/(grhob+grhoc) 
+            delta=(grhoc*ay(3)+grhob*ay(4))/(grhob+grhoc)
+            growth= ddelta/delta/adotoa
 
         if (associated(EV%OutputTransfer)) then
             EV%OutputTransfer(Transfer_kh) = k/(CP%h0/100._dl)
@@ -2549,6 +2553,7 @@
             EV%OutputTransfer(Transfer_Newt_vel_cdm)=  -k*sigma/adotoa
             EV%OutputTransfer(Transfer_Newt_vel_baryon) = -k*(vb + sigma)/adotoa
             EV%OutputTransfer(Transfer_vel_baryon_cdm) = vb
+            EV%OutputTransfer(Transfer_growth_rate) = growth
         end if
         if (associated(EV%OutputSources)) then
 
