@@ -37,7 +37,7 @@ SF90FLAGS += $(SMODOUT) $(IFLAG)$(DLL_DIR)/
 
 HEALPIXLD     = -L$(HEALPIXDIR)/lib -lhealpix -L$(FITSDIR) -l$(FITSLIB)
 
-CAMBOBJ       =  $(OUTPUT_DIR)/constants.o  $(OUTPUT_DIR)/mgcamb.o  $(OUTPUT_DIR)/utils.o $(EXTCAMBFILES)  $(OUTPUT_DIR)/subroutines.o  \
+CAMBOBJ       =  $(OUTPUT_DIR)/constants.o $(OUTPUT_DIR)/mgcamb.o  $(OUTPUT_DIR)/utils.o $(EXTCAMBFILES)  $(OUTPUT_DIR)/subroutines.o  \
 	$(OUTPUT_DIR)/inifile.o  $(OUTPUT_DIR)/$(POWERSPECTRUM).o  $(OUTPUT_DIR)/$(RECOMBINATION).o \
 	$(OUTPUT_DIR)/$(REIONIZATION).o $(OUTPUT_DIR)/modules.o $(OUTPUT_DIR)/bessels.o $(OUTPUT_DIR)/$(EQUATIONS).o \
 	$(OUTPUT_DIR)/$(NONLINEAR).o $(OUTPUT_DIR)/lensing.o $(OUTPUT_DIR)/$(BISPECTRUM).o $(OUTPUT_DIR)/cmbmain.o \

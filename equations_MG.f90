@@ -149,7 +149,7 @@
     real(dl) :: vec_sig0 = 1._dl
     !Vector mode shear
     integer, parameter :: max_l_evolve = 256 !Maximum l we are ever likely to propagate
-    !Note higher values increase size of Evolution vars, hence memoryWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+    !Note higher values increase size of Evolution vars, hence memory
 
     !Supported scalar initial condition flags
     integer, parameter :: initial_adiabatic=1, initial_iso_CDM=2, &
@@ -2057,6 +2057,8 @@
         ! 2. Computing the MG functions
         call MGCAMB_compute_MG_functions( a, mgcamb_par_cache, mgcamb_cache )
 
+        !write(*,*) 'a,mu:', a, mgcamb_cache%mu
+
         ! 3. Computing the shear perturbation sigma
         call MGCAMB_compute_sigma( a, mgcamb_par_cache, mgcamb_cache )
         sigma = mgcamb_cache%sigma
@@ -2068,14 +2070,12 @@
         else
             ! Old expression
             ! pirdot=k*(0.4_dl*qr-0.6_dl*ay(EV%lmaxg+10)+8._dl/15._dl*sigma)
-
             ! New expression,
 
             if (EV%lmaxnr>2) then
                 ix=EV%r_ix+2
                 pirdot=EV%denlk(2)*qr- EV%denlk2(2)*ay(ix+1)+8._dl/15._dl*k*sigma
             else
-
                 pirdot=EV%denlk(2)*qr +8._dl/15._dl*k*sigma
             end if
         end if
@@ -2088,7 +2088,8 @@
 
             if (EV%tightcoupling) then
                 !pigdot = 0.d0 ! It could improve to second order, but requires Z
-                pigdot = EV%pigdot
+                !pigdot = EV%pigdot
+                pigdot = 0.d0
 
             else
                 E2=ay(EV%polind+2)
