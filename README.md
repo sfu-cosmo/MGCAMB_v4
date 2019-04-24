@@ -14,8 +14,9 @@ This is the official repository for the MGCAMB v3.0 patch.  Below there are an i
    * [Run the code](#run-the-code)
    * [Run the test suite](#run-the-test-suite)
 * [4. What's new](#4-whats-new)
-* [5. Examples](#examples)
-* [6. Authors List](#authors-list)
+* [5. Examples](#5-examples)
+* [6. Known Bugs](#6-known-bugs)
+* [7. Authors List](#authors-list)
 
 ## 1. Introduction
 Modified Growth with CAMB (MGCAMB) is a patch for the Einstein Boltzmann solver [CAMB](https://github.com/cmbant/CAMB) that intrdouces phenomenological Modifications of Growth (MG) along with dynamical Dark Energy (DE). It includes several phenomenological parametrizations. For instance:
@@ -113,9 +114,10 @@ The MG and DE parametrizations along with the computation of the quantities rela
 
 ## 5. Examples
 
+## 6. Known Bugs
+- **Fixed**. Bug in Hu-Sawicki f(R) gravity: ```MGCAMB_Mu``` and ```MGCAMB_Mudot``` functions had a wrong ```t1``` term.  Thanks to Ziad Sakr.
 
-
-## 6. Authors List
+## 7. Authors List
 Main Developer:
 - [Alex Zucca](https://www.sfu.ca/physics/people/profiles/azucca.html) Email: azucca@sfu.ca
 
