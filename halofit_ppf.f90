@@ -15,7 +15,7 @@
     !   halofit_takahashi: arXiv: 1208.2701
     !   halofit_mead: arXiv:1505.07833,1602.02154
     !   halofit_casarini: arXiv:0810.0190, arXiv:1601.07230
-
+    !   halofit_MG:   Winther et al, arxiv:1903.08798
     ! Adapted for F90 and CAMB, AL March 2005
     !!BR09 Oct 09: generalized expressions for om(z) and ol(z) to include w
 
@@ -57,7 +57,7 @@
     integer :: halofit_version = halofit_default
     public Min_kh_nonlinear, NonLinear_GetNonLinRatios, NonLinear_ReadParams
     public halofit_version, halofit_default, halofit_original, halofit_bird, halofit_peacock, halofit_takahashi
-    public halofit_mead, halofit_halomodel, halofit_casarini
+    public halofit_mead, halofit_halomodel, halofit_casarini, halofit_MG
 
     !!AM - Added these types for HMcode
     INTEGER :: imead !!AM - added these for HMcode, need to be visible to all subroutines and functions
