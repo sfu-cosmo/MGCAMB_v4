@@ -57,6 +57,11 @@ module MGCAMB
     real(dl) :: mu0
     real(dl) :: sigma0
 
+
+    ! effective Newton's constant
+    real(dl) :: ga
+    real(dl) :: nn
+
     ! DE model parameters
     real(dl) :: w0DE              !< w0 parameters for DE
     real(dl) :: waDE              !< waDE parameters for DE
@@ -437,7 +442,10 @@ contains
                     omegaDE_t = mg_cache%grhov_t / 3._dl / mg_cache%adotoa**2
                     MGCAMB_Mu = 1._dl + E11*omegaDE_t
 
-                else if ( mugamma_par == 3 ) then
+                else if ( mugamma_par == 3 ) then ! effective Newton constant
+                    MGCAMB_Mu = 1._dl+ga*(1._dl)**nn - ga*(1._dl)**(2._dl*nn)
+
+                else if ( mugamma_par == 4 ) then
                     MGCAMB_Mu = 1._dl
 
                 end if
@@ -551,6 +559,9 @@ contains
                     MGCAMB_Mudot = E11*omegaDEdot
 
                 else if ( mugamma_par == 3 ) then
+                    MGCAMB_Mudot = mg_cache%adotoa*a*ga*nn*(-1._dl+2._dl*(1._dl-a)**nn)*(1._dl-a)**(nn-1._dl)
+
+                else if ( mugamma_par == 4 ) then
                     MGCAMB_Mudot = 0._dl
 
                 end if
@@ -670,6 +681,8 @@ contains
                 else if ( mugamma_par == 3 ) then
                     MGCAMB_Gamma = 1._dl
 
+                else if ( mugamma_par == 4 ) then
+                    MGCAMB_Gamma = 1._dl
                 end if
 
             else if ( pure_MG_flag == 2 ) then ! mu-Sigma
@@ -774,6 +787,9 @@ contains
                     MGCAMB_Gammadot = E22*omegaDEdot
 
                 else if ( mugamma_par == 3 ) then
+                    MGCAMB_Gammadot = 0._dl
+
+                else if ( mugamma_par == 4 ) then
                     MGCAMB_Gammadot = 0._dl
 
                 end if
@@ -1128,6 +1144,11 @@ contains
                         E11     = Ini_Read_Double('E11', 0._dl)
                         E22     = Ini_Read_Double('E22', 0._dl)
                         write(*,*) 'E11, E22', E11, E22
+                    else if ( mugamma_par == 3 ) then
+                        write(*,*) '        Effective Newton constant'
+                        ga      = Ini_Read_Double('ga', 0._dl)
+                        nn      = Ini_Read_Double('nn', 0._dl)
+                        write(*,*) 'ga, nn:', ga, nn
                     else
                         write(*,*) ' write your own mu-gamma parametrization in mgcamb.f90'
                         stop

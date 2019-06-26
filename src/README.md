@@ -1,7 +1,7 @@
 MGCAMB v3.0
 ===========
 ## Modified Growth with CAMB
-This is the official repository for the MGCAMB v3.0 patch.  Below there are an introduction to the code and the instructions to install  and run the code. This new version of the code was introduced in the paper [*MGCAMB with massive neutrinos and dynamical Dark Energy*](https://arxiv.org/abs/1901.05956) 
+This is the official repository for the MGCAMB v3.0 patch.  Below there are an introduction to the code and the instructions to install  and run the code. This new version of the code was introduced in the paper *MGCAMB with massive neutrinos and dynamical Dark Energy* (DE)
 
 
 ## Table of contents
@@ -45,7 +45,7 @@ The new MGCAMB patch is structured as in the figure.
 <img src="img/MGCAMB_flowchart.png" width="1000" title="MGCAMB code structure" />
 </p>
 
-The parameters in  [``` params_MG.ini ``` ](src/params_MG.ini) are used to run the code and follow the structure above. 
+The parameters in  [``` params_MG.ini ``` ](params_MG.ini) are used to run the code and follow the structure above. 
 Please, note that dynamical DE is supported in the ``` pure_MG_models ```. 
 
 ### Consistency of the code
@@ -76,20 +76,20 @@ If you use MGCAMB for your scientific work, please cite the following papers:
     [arXiv:0809.3791 [astro-ph]](http://arxiv.org/abs/0809.3791), [Phys. Rev. D 79, 083513](https://journals.aps.org/prd/abstract/10.1103/PhysRevD.79.083513)
 
 
-as well as the original CAMB [paper](http://arxiv.org/abs/astro-ph/9911177). The file  [``` MGCAMB_references.bib```](src/mgcamb_notes/MGCAMB_references.bib) contains  all the references mentioned above.
+as well as the original CAMB [paper](http://arxiv.org/abs/astro-ph/9911177). The file  [``` MGCAMB_references.bib```](mgcamb_notes/MGCAMB_references.bib) contains  all the references mentioned above.
 
 ## 2. How to install
 To install MGCAMB in your machine simply run
 ```bash
 git clone https://github.com/sfu-cosmo/MGCAMB.git
-cd MGCAMB/src/
+cd MGCAMB
 make camb
 ```
 
 ## 3. How to run
 
 ### Run the code
-To run MGCAMB, first modify the  [``` params_MG.ini ``` ](src/params_MG.ini) file according to which models you want to analyze. Then run
+To run MGCAMB, first modify the  [``` params_MG.ini ``` ](params_MG.ini) file according to which models you want to analyze. Then run
 
 ```bash
 ./camb params.ini
@@ -110,7 +110,7 @@ With these new version of the code we implemented consistently massive neutrinos
 
 Also, the code has been checked and restructured and updated to the CAMB 2018 version. 
 
-The MG and DE parametrizations along with the computation of the quantities related to the perturbations are introduced in the file [``` mgcamb.f90 ```](src/mgcamb.f90).
+The MG and DE parametrizations along with the computation of the quantities related to the perturbations are introduced in the file [``` mgcamb.f90 ```](mgcamb.f90).
 
 ## 5. Examples
 
