@@ -23,17 +23,17 @@ Modified Growth with CAMB (MGCAMB) is a patch for the Einstein Boltzmann solver 
 
 - the mu, gamma parametrization, defined as
 <p align="center">
-<img src="img/mu_gamma.png" width="350" title="mu gamma parametrization" />
+<img src="src/img/mu_gamma.png" width="350" title="mu gamma parametrization" />
 </p>
 
 - the mu, Sigma parametrization, defined as
 <p align="center">
-<img src="img/mu_sigma.png" width="350" title="mu sigma parametrization" />
+<img src="src/img/mu_sigma.png" width="350" title="mu sigma parametrization" />
 </p>
 
 - the Q,R parametrization, defined as
 <p align="center">
-<img src="img/q_r.png" width="350" title="Q R parametrization" />
+<img src="src/img/q_r.png" width="350" title="Q R parametrization" />
 </p>
 
 MGCAMB is implemented in the latest version of [CosmoMC](https://github.com/cmbant/CosmoMC). The MGCosmoMC code can be found on this [repository](https://github.com/sfu-cosmo/MGCosmoMC)
@@ -42,7 +42,7 @@ MGCAMB is implemented in the latest version of [CosmoMC](https://github.com/cmba
 The new MGCAMB patch is structured as in the figure.
 
 <p align="center">
-<img src="img/MGCAMB_flowchart.png" width="1000" title="MGCAMB code structure" />
+<img src="src/img/MGCAMB_flowchart.png" width="1000" title="MGCAMB code structure" />
 </p>
 
 The parameters in  [``` params_MG.ini ``` ](src/params_MG.ini) are used to run the code and follow the structure above. 
@@ -52,7 +52,7 @@ Please, note that dynamical DE is supported in the ``` pure_MG_models ```.
 The General Relativity (GR) limit of the code has been tested. The results below show the maximum error obtained in the CMB TT spectrum and matter power spectrum when using the MG equations (in the GR limit) to evolve the system:
 
 <p align="center">
-<img src="img/cls_mpk_consistency_max.png" width="750" title="MGCAMB consistency" />
+<img src="src/img/cls_mpk_consistency_max.png" width="750" title="MGCAMB consistency" />
 </p>
 
 For all  ``` GRtrans ``` times, the systematic maximum error is below 0.1%. This is achieved by delaying the time at which the Radiation Streaming Approximation (RSA) is switched on.  This slows down MGCAMB code with respect to the default CAMB code by a factor of two.
