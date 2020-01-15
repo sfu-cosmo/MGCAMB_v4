@@ -115,11 +115,13 @@ The MG and DE parametrizations along with the computation of the quantities rela
 ## 5. Examples
 
 ## 6. Known Bugs
+- **Fixed** Bug in mu-sigma parametrization. ```MGCAMB_Gammadot``` from the mu-sigma parametrization was missing the  ```omegaDE_t``` term. 
+
 - **Fixed**. Bug in Hu-Sawicki f(R) gravity: ```MGCAMB_Mu``` and ```MGCAMB_Mudot``` functions had a wrong ```t1``` term.  Thanks to Ziad Sakr.
 
 ## 7. Authors List
 Main Developer:
-- [Alex Zucca](https://www.sfu.ca/physics/people/profiles/azucca.html) Email: azucca@sfu.ca
+- [Alex Zucca](https://www.sfu.ca/physics/people/profiles/azucca.html) Email: azucca@dwavesys.com
 
 Original Code Developers:
 * [Gong-Bo Zhao](http://icosmology.info)
