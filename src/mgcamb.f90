@@ -799,9 +799,7 @@ contains
                 if ( muSigma_par == 1 ) then ! DES parametrization
 
                 ! changing the following
-                !omegaDE_t = mg_cache%grhov_t / a**2 / 3._dl / mg_par_cache%h0_Mpc**2
-                !omegaDEdot = - 3._dl * mg_cache%adotoa * (mg_cache%grhov_t + mg_cache%gpresv_t) &
-                !            & / a**2 / 3._dl / mg_par_cache%h0_Mpc**2
+                omegaDE_t = mg_cache%grhov_t / 3._dl / mg_cache%adotoa**2
                 omegaDEdot  =-(mg_cache%grhov_t+3._dl*mg_cache%gpresv_t)/3._dl/mg_cache%adotoa &
                                 & - 2._dl*mg_cache%Hdot/3._dl/mg_cache%adotoa**3*mg_cache%grhov_t
                 sigma_t     = 1._dl + sigma0 * omegaDE_t / mg_par_cache%omegav
