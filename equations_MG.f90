@@ -93,12 +93,16 @@
     grhoa2=grhok*a2+(grhoc+grhob)*a+grhog+grhornomass
 
     !> MGCAMB MOD START: modifying the background
-    if ( MG_flag == 0 ) then
-        if (w_lam == -1._dl) then
-            grhoa2=grhoa2+grhov*a2**2
-        else
-            grhoa2=grhoa2+grhov*a**(1-3*w_lam)
-        end if
+    !if ( MG_flag == 0 ) then
+    !    if (w_lam == -1._dl) then
+    !        grhoa2=grhoa2+grhov*a2**2
+    !    else
+    !        grhoa2=grhoa2+grhov*a**(1-3*w_lam)
+    !    end if
+    if ( MG_flag == 0 ) then   !! Santiago: Add this to allow MGCAMB to read w0,wa
+        call MGCAMB_DarkEnergy( a, mgcamb_par_cache, mgcamb_cache )
+        grhoa2=grhoa2+mgcamb_cache%grhov_t*a2
+    end if   
     else if ( MG_flag /= 0 ) then !< MGCAMB modifies the background as well
         call MGCAMB_DarkEnergy( a, mgcamb_par_cache, mgcamb_cache )
         grhoa2=grhoa2+mgcamb_cache%grhov_t*a2

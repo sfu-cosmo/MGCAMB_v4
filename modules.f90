@@ -1777,7 +1777,7 @@
         Transfer_Weyl = 10, & ! the Weyl potential, for lensing and ISW
         Transfer_Newt_vel_cdm=11, Transfer_Newt_vel_baryon=12,   & ! -k v_Newtonian/H
         Transfer_vel_baryon_cdm = 13,  & !relative velocity of baryons and CDM
-        Transfer_growth_rate = 14 !relative velocity of baryons and CDM
+        Transfer_growth_rate = 14 ! f(k,z) growth rate of perturbations
 
     integer, parameter :: Transfer_max = Transfer_growth_rate
     character(LEN=name_tag_len) :: Transfer_name_tags(Transfer_max-1) = &
