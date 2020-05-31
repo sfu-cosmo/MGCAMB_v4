@@ -61,6 +61,13 @@ module MGCAMB
     real(dl) :: w0DE              !< w0 parameters for DE
     real(dl) :: waDE              !< waDE parameters for DE
 
+    !MMmod: binned parameterizations
+    integer                              :: MGbins
+    real(dl)                             :: s_fac
+    real(dl), allocatable, dimension(:)  :: zeta_bins
+    real(dl), allocatable, dimension(:)  :: mu_bins
+    real(dl), allocatable, dimension(:)  :: eta_bins
+
     character(len=(10)) :: MGCAMB_version = 'v 3.0'
 
 
@@ -156,10 +163,12 @@ contains
         type(MGCAMB_timestep_cache), intent(inout) :: mg_cache      !< cache containing the time-dependent quantities
         type(MGCAMB_parameter_cache), intent(in)   :: mg_par_cache  !< cache containing the parameters
 
+
         ! Divide the cases here
         if (( MG_flag == 1 .and. pure_MG_flag /= 3 ) & ! all the mu, gamma parametrizations
             .or. MG_flag == 2 &
             .or. MG_flag == 3 ) then
+
 
             mg_cache%mu         = MGCAMB_Mu( a, mg_par_cache, mg_cache )
             mg_cache%mudot      = MGCAMB_MuDot( a, mg_par_cache, mg_cache )
@@ -419,6 +428,15 @@ contains
         ! beta, m parametrization
         real(dl) :: beta, m
 
+
+        !MMmod: binned parameterizations
+        integer  :: i
+        real(dl) :: z
+!        real(dl), dimension(MGbins)  :: zeta_prime_bins
+!        real(dl), dimension(MGbins)  :: mu_prime_bins
+!        real(dl), dimension(MGbins)  :: eta_bins
+
+
         !> pure MG models
         if ( MG_flag == 1 .and. pure_MG_flag /= 3 ) then
 
@@ -439,6 +457,21 @@ contains
 
                 else if ( mugamma_par == 3 ) then
                     MGCAMB_Mu = 1._dl
+
+                else if ( mugamma_par == 4 ) then !MMmod: binned parameterization
+
+                    z = -1+1/a
+                    if ( z < zeta_bins(1) ) then 
+                       MGCAMB_Mu = mu_bins(1)
+                    else if ( z >= zeta_bins(MGbins) ) then
+                       MGCAMB_Mu = mu_bins(MGbins)
+                    else
+                       MGCAMB_Mu = mu_bins(1)
+                       do i=1,MGbins-1
+                          MGCAMB_Mu = MGCAMB_Mu+0.5*(mu_bins(i+1)-mu_bins(i))*( 1+tanh( s_fac*(z-zeta_bins(i+1))/(zeta_bins(i+1)-zeta_bins(i)) ) )
+                       end do
+                    end if
+
 
                 end if
 
@@ -529,6 +562,11 @@ contains
 
         real(dl) :: omegaDEdot
 
+        !MMmod: binned parameterizations
+        real(dl), dimension(MGbins)  :: zeta_prime_bins
+        real(dl), dimension(MGbins)  :: mu_prime_bins
+!        real(dl), dimension(MGbins)  :: eta_bins        
+
         !> pure MG models
         if ( MG_flag == 1 .and. pure_MG_flag /= 3 ) then
 
@@ -551,6 +589,9 @@ contains
                     MGCAMB_Mudot = E11*omegaDEdot
 
                 else if ( mugamma_par == 3 ) then
+                    MGCAMB_Mudot = 0._dl
+
+                else if ( mugamma_par == 4 ) then
                     MGCAMB_Mudot = 0._dl
 
                 end if
@@ -651,10 +692,15 @@ contains
         real(dl) :: sigma_t
         real(dl) :: mu_t
 
+        !MMmod: binned parameterization
+        integer  :: i
+        real(dl) :: z
+
         !> pure MG models
         if ( MG_flag == 1 .and. pure_MG_flag /= 3 ) then
 
             if ( pure_MG_flag == 1 ) then ! mu-gamma
+
                 if ( mugamma_par == 1 ) then ! BZ parametrization
                     LKA1 = lambda1_2 * mg_cache%k2 * a**ss
                     LKA2 = lambda2_2 * mg_cache%k2 * a**ss
@@ -669,6 +715,22 @@ contains
 
                 else if ( mugamma_par == 3 ) then
                     MGCAMB_Gamma = 1._dl
+
+                else if ( mugamma_par == 4 ) then !MMmod:binned parameterization
+
+                    z = -1+1/a
+
+                    if ( z < zeta_bins(1) ) then
+                       MGCAMB_Gamma = eta_bins(1)
+                    else if ( z >= zeta_bins(MGbins) ) then
+                       MGCAMB_Gamma = eta_bins(MGbins)
+                    else
+                       MGCAMB_Gamma = eta_bins(1)
+                       do i=1,MGbins-1
+                          MGCAMB_Gamma = MGCAMB_Gamma+0.5*(eta_bins(i+1)-eta_bins(i))*( 1+tanh( s_fac*(z-zeta_bins(i+1))/(zeta_bins(i+1)-zeta_bins(i)) ) )
+                       end do
+                    end if
+
 
                 end if
 
@@ -774,6 +836,9 @@ contains
                     MGCAMB_Gammadot = E22*omegaDEdot
 
                 else if ( mugamma_par == 3 ) then
+                    MGCAMB_Gammadot = 0._dl
+
+                else if ( mugamma_par == 4 ) then !MMmod: binned parameterization
                     MGCAMB_Gammadot = 0._dl
 
                 end if
@@ -1092,6 +1157,7 @@ contains
     subroutine MGCAMB_read_model_params( mg_par_cache )
         use IniFile
         Type(MGCAMB_parameter_cache), intent(in)   :: mg_par_cache  !< cache containing the parameters
+        character(LEN=Ini_max_string_len)          :: zstr, mustr, etastr !MMmod: binned parameterization
 
         ! 1. MG_flag
         MG_flag = Ini_Read_Int('MG_flag', 0)
@@ -1128,6 +1194,20 @@ contains
                         E11     = Ini_Read_Double('E11', 0._dl)
                         E22     = Ini_Read_Double('E22', 0._dl)
                         write(*,*) 'E11, E22', E11, E22
+                    else if (mugamma_par == 4) then !MMmod: binned parameterization
+                        write(*,*) '        Binned functions'
+                        MGbins = Ini_Read_Int('MGbins',1)
+                        s_fac  = Ini_Read_Double('s_fac',10._dl)
+
+                        if ( .not. allocated(zeta_bins) ) then 
+                           allocate(zeta_bins(MGbins),mu_bins(MGbins),eta_bins(MGbins))
+                        end if
+                        zstr   = Ini_Read_String('z_b')
+                        mustr  = Ini_Read_String('mu_b')
+                        etastr = Ini_Read_String('eta_b')
+                        read (zstr,*)   zeta_bins(1:MGbins)
+                        read (mustr,*)  mu_bins(1:MGbins)
+                        read (etastr,*) eta_bins(1:MGbins)
                     else
                         write(*,*) ' write your own mu-gamma parametrization in mgcamb.f90'
                         stop
