@@ -67,6 +67,9 @@ module MGCAMB
     real(dl), allocatable, dimension(:)  :: zeta_bins
     real(dl), allocatable, dimension(:)  :: mu_bins
     real(dl), allocatable, dimension(:)  :: eta_bins
+    real(dl), allocatable, dimension(:)  :: der_zeta_bins
+    real(dl), allocatable, dimension(:)  :: der_mu_bins
+    real(dl), allocatable, dimension(:)  :: der_eta_bins
 
     character(len=(10)) :: MGCAMB_version = 'v 3.0'
 
@@ -432,9 +435,6 @@ contains
         !MMmod: binned parameterizations
         integer  :: i
         real(dl) :: z
-!        real(dl), dimension(MGbins)  :: zeta_prime_bins
-!        real(dl), dimension(MGbins)  :: mu_prime_bins
-!        real(dl), dimension(MGbins)  :: eta_bins
 
 
         !> pure MG models
@@ -563,9 +563,9 @@ contains
         real(dl) :: omegaDEdot
 
         !MMmod: binned parameterizations
-        real(dl), dimension(MGbins)  :: zeta_prime_bins
-        real(dl), dimension(MGbins)  :: mu_prime_bins
-!        real(dl), dimension(MGbins)  :: eta_bins        
+        integer  :: i
+        real(dl) :: z
+
 
         !> pure MG models
         if ( MG_flag == 1 .and. pure_MG_flag /= 3 ) then
@@ -591,8 +591,21 @@ contains
                 else if ( mugamma_par == 3 ) then
                     MGCAMB_Mudot = 0._dl
 
-                else if ( mugamma_par == 4 ) then
-                    MGCAMB_Mudot = 0._dl
+                else if ( mugamma_par == 4 ) then !MMmod: binned parameterization
+                    z = -1+1/a
+
+                    if ( z < der_zeta_bins(1) ) then
+                       MGCAMB_Mudot = 0.
+                    else if ( z >= der_zeta_bins(MGbins-1) ) then
+                       MGCAMB_Mudot = 0.
+                    else
+                       MGCAMB_Mudot = der_mu_bins(1)
+                       do i=1,MGbins-2
+                          MGCAMB_Mudot = MGCAMB_Mudot+0.5*(der_mu_bins(i+1)-der_mu_bins(i))*( 1+tanh( s_fac*(z-zeta_bins(i+1))/(zeta_bins(i+1)-zeta_bins(i)) ) )
+                       end do
+                    end if 
+
+                    MGCAMB_Mudot = -(1+z)*mg_cache%adotoa*MGCAMB_Mudot
 
                 end if
 
@@ -814,6 +827,10 @@ contains
         real(dl) :: sigma_t, sigmadot_t
         real(dl) :: mu_t, mudot_t
 
+        !MMmod: binned parameterizations
+        integer  :: i
+        real(dl) :: z
+
 
 
         !> pure MG models
@@ -839,7 +856,21 @@ contains
                     MGCAMB_Gammadot = 0._dl
 
                 else if ( mugamma_par == 4 ) then !MMmod: binned parameterization
-                    MGCAMB_Gammadot = 0._dl
+
+                    z = -1+1/a
+
+                    if ( z < der_zeta_bins(1) ) then
+                       MGCAMB_Gammadot = 0.
+                    else if ( z >= der_zeta_bins(MGbins-1) ) then
+                       MGCAMB_Gammadot = 0.
+                    else
+                       MGCAMB_Gammadot = der_eta_bins(1)
+                       do i=1,MGbins-2
+                          MGCAMB_Gammadot = MGCAMB_Gammadot+0.5*(der_eta_bins(i+1)-der_eta_bins(i))*( 1+tanh( s_fac*(z-zeta_bins(i+1))/(zeta_bins(i+1)-zeta_bins(i)) ) )
+                       end do
+                    end if
+
+                    MGCAMB_Gammadot = -(1+z)*mg_cache%adotoa*MGCAMB_Gammadot
 
                 end if
 
@@ -1201,6 +1232,7 @@ contains
 
                         if ( .not. allocated(zeta_bins) ) then 
                            allocate(zeta_bins(MGbins),mu_bins(MGbins),eta_bins(MGbins))
+                           allocate(der_zeta_bins(MGbins-1),der_mu_bins(MGbins-1),der_eta_bins(MGbins-1))
                         end if
                         zstr   = Ini_Read_String('z_b')
                         mustr  = Ini_Read_String('mu_b')
@@ -1208,6 +1240,13 @@ contains
                         read (zstr,*)   zeta_bins(1:MGbins)
                         read (mustr,*)  mu_bins(1:MGbins)
                         read (etastr,*) eta_bins(1:MGbins)
+
+                        do i = 1,MGbins-1
+                           der_zeta_bins(i) = (zeta_bins(i+1)+zeta_bins(i))*0.5
+                           der_mu_bins(i)   = (mu_bins(i+1)-mu_bins(i))/(zeta_bins(i+1)-zeta_bins(i))
+                           der_eta_bins(i)  = (eta_bins(i+1)-eta_bins(i))/(zeta_bins(i+1)-zeta_bins(i))
+                        end do
+
                     else
                         write(*,*) ' write your own mu-gamma parametrization in mgcamb.f90'
                         stop
