@@ -166,12 +166,37 @@ contains
         type(MGCAMB_timestep_cache), intent(inout) :: mg_cache      !< cache containing the time-dependent quantities
         type(MGCAMB_parameter_cache), intent(in)   :: mg_par_cache  !< cache containing the parameters
 
+        !MMmod
+        real(dl) :: test_z, fake_a
+        integer  :: i
+        logical  :: firstwrite = .true.
+
 
         ! Divide the cases here
         if (( MG_flag == 1 .and. pure_MG_flag /= 3 ) & ! all the mu, gamma parametrizations
             .or. MG_flag == 2 &
             .or. MG_flag == 3 ) then
 
+            !if (firstwrite .eqv. .true.) then  
+            !open(unit=42, file=TRIM(mgcamb_par_cache%output_root) // 'MGfuncs.dat', status="new", &
+            !& action="write")
+            
+            !do i=1,1000
+            !   test_z = (i-1)*3./1000.
+            !   fake_a = 1/(1+test_z)
+            !   !write(*,*) test_z, MGCAMB_Mu( fake_a, mg_par_cache, mg_cache )
+            !   write(42,'(14e18.8)') test_z, MGCAMB_Mu( fake_a, mg_par_cache, mg_cache ), MGCAMB_MuDot( fake_a, mg_par_cache, mg_cache ), &
+            !   & MGCAMB_Gamma( fake_a, mg_par_cache, mg_cache ), MGCAMB_GammaDot( fake_a, mg_par_cache, mg_cache )
+
+            !end do
+            !write(*,*) 'DEBUG!'
+            !close(42)
+
+            !firstwrite = .false.
+            !stop
+
+            !end if
+            
 
             mg_cache%mu         = MGCAMB_Mu( a, mg_par_cache, mg_cache )
             mg_cache%mudot      = MGCAMB_MuDot( a, mg_par_cache, mg_cache )
@@ -595,13 +620,13 @@ contains
                     z = -1+1/a
 
                     if ( z < der_zeta_bins(1) ) then
-                       MGCAMB_Mudot = 0.
+                       MGCAMB_Mudot = der_mu_bins(1)
                     else if ( z >= der_zeta_bins(MGbins-1) ) then
-                       MGCAMB_Mudot = 0.
+                       MGCAMB_Mudot = 0.!der_mu_bins(MGbins-1)
                     else
                        MGCAMB_Mudot = der_mu_bins(1)
                        do i=1,MGbins-2
-                          MGCAMB_Mudot = MGCAMB_Mudot+0.5*(der_mu_bins(i+1)-der_mu_bins(i))*( 1+tanh( s_fac*(z-zeta_bins(i+1))/(zeta_bins(i+1)-zeta_bins(i)) ) )
+                          MGCAMB_Mudot = MGCAMB_Mudot+0.5*(der_mu_bins(i+1)-der_mu_bins(i))*( 1+tanh( s_fac*(z-der_zeta_bins(i+1))/(der_zeta_bins(i+1)-der_zeta_bins(i)) ) )
                        end do
                     end if 
 
@@ -634,7 +659,7 @@ contains
                 mu = MGCAMB_Mu( a, mg_par_cache, mg_cache )
 
                 omm=(mg_par_cache%omegab+mg_par_cache%omegac)/((mg_par_cache%omegab+mg_par_cache%omegac) &
-                    & +(1-mg_par_cache%omegab-mg_par_cache%omegac)*a**3)
+                        & +(1-mg_par_cache%omegab-mg_par_cache%omegac)*a**3)
                 ommdot=-3._dl*omm**2*a**3*mg_cache%adotoa*(1-mg_par_cache%omegab-mg_par_cache%omegac) &
                     & /(mg_par_cache%omegab+mg_par_cache%omegac)
 
@@ -860,13 +885,13 @@ contains
                     z = -1+1/a
 
                     if ( z < der_zeta_bins(1) ) then
-                       MGCAMB_Gammadot = 0.
+                       MGCAMB_Gammadot = der_eta_bins(1)
                     else if ( z >= der_zeta_bins(MGbins-1) ) then
-                       MGCAMB_Gammadot = 0.
+                       MGCAMB_Gammadot = 0.!der_eta_bins(MGbins-1)
                     else
                        MGCAMB_Gammadot = der_eta_bins(1)
                        do i=1,MGbins-2
-                          MGCAMB_Gammadot = MGCAMB_Gammadot+0.5*(der_eta_bins(i+1)-der_eta_bins(i))*( 1+tanh( s_fac*(z-zeta_bins(i+1))/(zeta_bins(i+1)-zeta_bins(i)) ) )
+                          MGCAMB_Gammadot = MGCAMB_Gammadot+0.5*(der_eta_bins(i+1)-der_eta_bins(i))*( 1+tanh( s_fac*(z-der_zeta_bins(i+1))/(der_zeta_bins(i+1)-der_zeta_bins(i)) ) )
                        end do
                     end if
 
@@ -1491,7 +1516,7 @@ contains
         ! 2 Open MG functions file
         open(unit=222, file=TRIM(mgcamb_par_cache%output_root) // 'MGCAMB_debug_MG_fncs.dat', status="new",&
             & action="write")
-        write(222,*)  'k  ', 'a  ', 'mu  ', 'gamma ', 'Q ', 'R ', 'Phi ', 'Psi ', 'dPhi ', 'dPsi '
+        write(222,*)  'k  ', 'a  ', 'mu  ', 'gamma ', 'mudot ', 'gammadot ', 'Q ', 'R ', 'Phi ', 'Psi ', 'dPhi ', 'dPsi '
 
         ! 3. Open Einstein solutions file
         open(unit=333, file=TRIM(mgcamb_par_cache%output_root) // 'MGCAMB_debug_EinsteinSol.dat', status="new",&
@@ -1538,7 +1563,7 @@ contains
                                                     & mg_cache%source1, mg_cache%source3
 
         ! 2. Write the MG functions and the potentials
-        write(222,'(14'//cache_output_format//')') mg_cache%k, a, mg_cache%mu, mg_cache%gamma, mg_cache%q, mg_cache%r, &
+        write(222,'(14'//cache_output_format//')') mg_cache%k, a, mg_cache%mu, mg_cache%gamma, mg_cache%mudot, mg_cache%gammadot,mg_cache%q, mg_cache%r, &
                                                 & mg_cache%MG_phi, mg_cache%MG_psi, mg_cache%MG_phidot, mg_cache%MG_psidot
 
         ! 3. Write the Einstein equations solutions
