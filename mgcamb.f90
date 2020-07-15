@@ -61,6 +61,16 @@ module MGCAMB
     real(dl) :: w0DE              !< w0 parameters for DE
     real(dl) :: waDE              !< waDE parameters for DE
 
+    !MMmod: binned parameterizations
+    integer                              :: MGbins
+    real(dl)                             :: s_fac
+    real(dl), allocatable, dimension(:)  :: zeta_bins
+    real(dl), allocatable, dimension(:)  :: mu_bins
+    real(dl), allocatable, dimension(:)  :: eta_bins
+    real(dl), allocatable, dimension(:)  :: der_zeta_bins
+    real(dl), allocatable, dimension(:)  :: der_mu_bins
+    real(dl), allocatable, dimension(:)  :: der_eta_bins
+
     character(len=(10)) :: MGCAMB_version = 'v 3.0'
 
 
@@ -156,10 +166,37 @@ contains
         type(MGCAMB_timestep_cache), intent(inout) :: mg_cache      !< cache containing the time-dependent quantities
         type(MGCAMB_parameter_cache), intent(in)   :: mg_par_cache  !< cache containing the parameters
 
+        !MMmod
+        real(dl) :: test_z, fake_a
+        integer  :: i
+        logical  :: firstwrite = .true.
+
+
         ! Divide the cases here
         if (( MG_flag == 1 .and. pure_MG_flag /= 3 ) & ! all the mu, gamma parametrizations
             .or. MG_flag == 2 &
             .or. MG_flag == 3 ) then
+
+            !if (firstwrite .eqv. .true.) then  
+            !open(unit=42, file=TRIM(mgcamb_par_cache%output_root) // 'MGfuncs.dat', status="new", &
+            !& action="write")
+            
+            !do i=1,1000
+            !   test_z = (i-1)*3./1000.
+            !   fake_a = 1/(1+test_z)
+            !   !write(*,*) test_z, MGCAMB_Mu( fake_a, mg_par_cache, mg_cache )
+            !   write(42,'(14e18.8)') test_z, MGCAMB_Mu( fake_a, mg_par_cache, mg_cache ), MGCAMB_MuDot( fake_a, mg_par_cache, mg_cache ), &
+            !   & MGCAMB_Gamma( fake_a, mg_par_cache, mg_cache ), MGCAMB_GammaDot( fake_a, mg_par_cache, mg_cache )
+
+            !end do
+            !write(*,*) 'DEBUG!'
+            !close(42)
+
+            !firstwrite = .false.
+            !stop
+
+            !end if
+            
 
             mg_cache%mu         = MGCAMB_Mu( a, mg_par_cache, mg_cache )
             mg_cache%mudot      = MGCAMB_MuDot( a, mg_par_cache, mg_cache )
@@ -419,6 +456,12 @@ contains
         ! beta, m parametrization
         real(dl) :: beta, m
 
+
+        !MMmod: binned parameterizations
+        integer  :: i
+        real(dl) :: z
+
+
         !> pure MG models
         if ( MG_flag == 1 .and. pure_MG_flag /= 3 ) then
 
@@ -439,6 +482,21 @@ contains
 
                 else if ( mugamma_par == 3 ) then
                     MGCAMB_Mu = 1._dl
+
+                else if ( mugamma_par == 4 ) then !MMmod: binned parameterization
+
+                    z = -1+1/a
+                    if ( z < zeta_bins(1) ) then 
+                       MGCAMB_Mu = mu_bins(1)
+                    else if ( z >= zeta_bins(MGbins) ) then
+                       MGCAMB_Mu = mu_bins(MGbins)
+                    else
+                       MGCAMB_Mu = mu_bins(1)
+                       do i=1,MGbins-1
+                          MGCAMB_Mu = MGCAMB_Mu+0.5*(mu_bins(i+1)-mu_bins(i))*( 1+tanh( s_fac*(z-zeta_bins(i+1))/(zeta_bins(i+1)-zeta_bins(i)) ) )
+                       end do
+                    end if
+
 
                 end if
 
@@ -529,6 +587,11 @@ contains
 
         real(dl) :: omegaDEdot
 
+        !MMmod: binned parameterizations
+        integer  :: i
+        real(dl) :: z
+
+
         !> pure MG models
         if ( MG_flag == 1 .and. pure_MG_flag /= 3 ) then
 
@@ -552,6 +615,22 @@ contains
 
                 else if ( mugamma_par == 3 ) then
                     MGCAMB_Mudot = 0._dl
+
+                else if ( mugamma_par == 4 ) then !MMmod: binned parameterization
+                    z = -1+1/a
+
+                    if ( z < der_zeta_bins(1) ) then
+                       MGCAMB_Mudot = der_mu_bins(1)
+                    else if ( z >= der_zeta_bins(MGbins-1) ) then
+                       MGCAMB_Mudot = 0.!der_mu_bins(MGbins-1)
+                    else
+                       MGCAMB_Mudot = der_mu_bins(1)
+                       do i=1,MGbins-2
+                          MGCAMB_Mudot = MGCAMB_Mudot+0.5*(der_mu_bins(i+1)-der_mu_bins(i))*( 1+tanh( s_fac*(z-der_zeta_bins(i+1))/(der_zeta_bins(i+1)-der_zeta_bins(i)) ) )
+                       end do
+                    end if 
+
+                    MGCAMB_Mudot = -(1+z)*mg_cache%adotoa*MGCAMB_Mudot
 
                 end if
 
@@ -580,7 +659,7 @@ contains
                 mu = MGCAMB_Mu( a, mg_par_cache, mg_cache )
 
                 omm=(mg_par_cache%omegab+mg_par_cache%omegac)/((mg_par_cache%omegab+mg_par_cache%omegac) &
-                    & +(1-mg_par_cache%omegab-mg_par_cache%omegac)*a**3)
+                        & +(1-mg_par_cache%omegab-mg_par_cache%omegac)*a**3)
                 ommdot=-3._dl*omm**2*a**3*mg_cache%adotoa*(1-mg_par_cache%omegab-mg_par_cache%omegac) &
                     & /(mg_par_cache%omegab+mg_par_cache%omegac)
 
@@ -651,10 +730,15 @@ contains
         real(dl) :: sigma_t
         real(dl) :: mu_t
 
+        !MMmod: binned parameterization
+        integer  :: i
+        real(dl) :: z
+
         !> pure MG models
         if ( MG_flag == 1 .and. pure_MG_flag /= 3 ) then
 
             if ( pure_MG_flag == 1 ) then ! mu-gamma
+
                 if ( mugamma_par == 1 ) then ! BZ parametrization
                     LKA1 = lambda1_2 * mg_cache%k2 * a**ss
                     LKA2 = lambda2_2 * mg_cache%k2 * a**ss
@@ -669,6 +753,22 @@ contains
 
                 else if ( mugamma_par == 3 ) then
                     MGCAMB_Gamma = 1._dl
+
+                else if ( mugamma_par == 4 ) then !MMmod:binned parameterization
+
+                    z = -1+1/a
+
+                    if ( z < zeta_bins(1) ) then
+                       MGCAMB_Gamma = eta_bins(1)
+                    else if ( z >= zeta_bins(MGbins) ) then
+                       MGCAMB_Gamma = eta_bins(MGbins)
+                    else
+                       MGCAMB_Gamma = eta_bins(1)
+                       do i=1,MGbins-1
+                          MGCAMB_Gamma = MGCAMB_Gamma+0.5*(eta_bins(i+1)-eta_bins(i))*( 1+tanh( s_fac*(z-zeta_bins(i+1))/(zeta_bins(i+1)-zeta_bins(i)) ) )
+                       end do
+                    end if
+
 
                 end if
 
@@ -752,6 +852,10 @@ contains
         real(dl) :: sigma_t, sigmadot_t
         real(dl) :: mu_t, mudot_t
 
+        !MMmod: binned parameterizations
+        integer  :: i
+        real(dl) :: z
+
 
 
         !> pure MG models
@@ -775,6 +879,23 @@ contains
 
                 else if ( mugamma_par == 3 ) then
                     MGCAMB_Gammadot = 0._dl
+
+                else if ( mugamma_par == 4 ) then !MMmod: binned parameterization
+
+                    z = -1+1/a
+
+                    if ( z < der_zeta_bins(1) ) then
+                       MGCAMB_Gammadot = der_eta_bins(1)
+                    else if ( z >= der_zeta_bins(MGbins-1) ) then
+                       MGCAMB_Gammadot = 0.!der_eta_bins(MGbins-1)
+                    else
+                       MGCAMB_Gammadot = der_eta_bins(1)
+                       do i=1,MGbins-2
+                          MGCAMB_Gammadot = MGCAMB_Gammadot+0.5*(der_eta_bins(i+1)-der_eta_bins(i))*( 1+tanh( s_fac*(z-der_zeta_bins(i+1))/(der_zeta_bins(i+1)-der_zeta_bins(i)) ) )
+                       end do
+                    end if
+
+                    MGCAMB_Gammadot = -(1+z)*mg_cache%adotoa*MGCAMB_Gammadot
 
                 end if
 
@@ -1092,6 +1213,7 @@ contains
     subroutine MGCAMB_read_model_params( mg_par_cache )
         use IniFile
         Type(MGCAMB_parameter_cache), intent(in)   :: mg_par_cache  !< cache containing the parameters
+        character(LEN=Ini_max_string_len)          :: zstr, mustr, etastr !MMmod: binned parameterization
 
         ! 1. MG_flag
         MG_flag = Ini_Read_Int('MG_flag', 0)
@@ -1128,6 +1250,28 @@ contains
                         E11     = Ini_Read_Double('E11', 0._dl)
                         E22     = Ini_Read_Double('E22', 0._dl)
                         write(*,*) 'E11, E22', E11, E22
+                    else if (mugamma_par == 4) then !MMmod: binned parameterization
+                        write(*,*) '        Binned functions'
+                        MGbins = Ini_Read_Int('MGbins',1)
+                        s_fac  = Ini_Read_Double('s_fac',10._dl)
+
+                        if ( .not. allocated(zeta_bins) ) then 
+                           allocate(zeta_bins(MGbins),mu_bins(MGbins),eta_bins(MGbins))
+                           allocate(der_zeta_bins(MGbins-1),der_mu_bins(MGbins-1),der_eta_bins(MGbins-1))
+                        end if
+                        zstr   = Ini_Read_String('z_b')
+                        mustr  = Ini_Read_String('mu_b')
+                        etastr = Ini_Read_String('eta_b')
+                        read (zstr,*)   zeta_bins(1:MGbins)
+                        read (mustr,*)  mu_bins(1:MGbins)
+                        read (etastr,*) eta_bins(1:MGbins)
+
+                        do i = 1,MGbins-1
+                           der_zeta_bins(i) = (zeta_bins(i+1)+zeta_bins(i))*0.5
+                           der_mu_bins(i)   = (mu_bins(i+1)-mu_bins(i))/(zeta_bins(i+1)-zeta_bins(i))
+                           der_eta_bins(i)  = (eta_bins(i+1)-eta_bins(i))/(zeta_bins(i+1)-zeta_bins(i))
+                        end do
+
                     else
                         write(*,*) ' write your own mu-gamma parametrization in mgcamb.f90'
                         stop
@@ -1372,7 +1516,7 @@ contains
         ! 2 Open MG functions file
         open(unit=222, file=TRIM(mgcamb_par_cache%output_root) // 'MGCAMB_debug_MG_fncs.dat', status="new",&
             & action="write")
-        write(222,*)  'k  ', 'a  ', 'mu  ', 'gamma ', 'Q ', 'R ', 'Phi ', 'Psi ', 'dPhi ', 'dPsi '
+        write(222,*)  'k  ', 'a  ', 'mu  ', 'gamma ', 'mudot ', 'gammadot ', 'Q ', 'R ', 'Phi ', 'Psi ', 'dPhi ', 'dPsi '
 
         ! 3. Open Einstein solutions file
         open(unit=333, file=TRIM(mgcamb_par_cache%output_root) // 'MGCAMB_debug_EinsteinSol.dat', status="new",&
@@ -1419,7 +1563,7 @@ contains
                                                     & mg_cache%source1, mg_cache%source3
 
         ! 2. Write the MG functions and the potentials
-        write(222,'(14'//cache_output_format//')') mg_cache%k, a, mg_cache%mu, mg_cache%gamma, mg_cache%q, mg_cache%r, &
+        write(222,'(14'//cache_output_format//')') mg_cache%k, a, mg_cache%mu, mg_cache%gamma, mg_cache%mudot, mg_cache%gammadot,mg_cache%q, mg_cache%r, &
                                                 & mg_cache%MG_phi, mg_cache%MG_psi, mg_cache%MG_phidot, mg_cache%MG_psidot
 
         ! 3. Write the Einstein equations solutions

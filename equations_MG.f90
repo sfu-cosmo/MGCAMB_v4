@@ -103,7 +103,7 @@
         call MGCAMB_DarkEnergy( a, mgcamb_par_cache, mgcamb_cache )
         grhoa2=grhoa2+mgcamb_cache%grhov_t*a2
     end if   
-    else if ( MG_flag /= 0 ) then !< MGCAMB modifies the background as well
+    if ( MG_flag /= 0 ) then !< MGCAMB modifies the background as well
         call MGCAMB_DarkEnergy( a, mgcamb_par_cache, mgcamb_cache )
         grhoa2=grhoa2+mgcamb_cache%grhov_t*a2
     end if
