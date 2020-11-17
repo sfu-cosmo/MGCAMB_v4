@@ -119,6 +119,10 @@
 
     dtauda=sqrt(3/grhoa2)
 
+
+
+
+
     end function dtauda
 
     !cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
@@ -2535,6 +2539,14 @@
             ddelta= (ayprime(3)*grhoc+ayprime(4)*grhob)/(grhob+grhoc) 
             delta=(grhoc*ay(3)+grhob*ay(4))/(grhob+grhoc)
             growth= ddelta/delta/adotoa
+
+!> Input for input_4_cast
+		write(1111,*) 1._dl/a-1._dl, adotoa/a
+		if(real(a)>=.9990) then
+		write(1111,*) 0._dl, adotoa/a
+		end if
+!> Input for input_4_cast
+
 
         if (associated(EV%OutputTransfer)) then
             EV%OutputTransfer(Transfer_kh) = k/(CP%h0/100._dl)
