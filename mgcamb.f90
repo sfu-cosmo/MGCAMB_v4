@@ -81,7 +81,7 @@ module MGCAMB
         real(dl) :: omegav
         real(dl) :: h0
         real(dl) :: h0_Mpc
-        character(len=30) :: output_root
+        character(len=256) :: output_root
     end type MGCAMB_parameter_cache
 
     type(MGCAMB_parameter_cache) :: mgcamb_par_cache
@@ -1509,29 +1509,29 @@ contains
         implicit none
 
         ! 1. Open sources file
-        open(unit=111, file=TRIM(mgcamb_par_cache%output_root) // 'MGCAMB_debug_sources.dat', status="new", &
+        open(unit=111, file=TRIM(mgcamb_par_cache%output_root) // 'MGCAMB_debug_sources.dat', status="replace", &
             & action="write")
-        write(111,*)  'k  ', 'a  ', 'MG_ISW  ', 'MG_Lensing  ', 'S_T  ', 'S_lensing'
+        write(111,*)  '# k  ', 'a  ', 'MG_ISW  ', 'MG_Lensing  ', 'S_T  ', 'S_lensing'
 
         ! 2 Open MG functions file
-        open(unit=222, file=TRIM(mgcamb_par_cache%output_root) // 'MGCAMB_debug_MG_fncs.dat', status="new",&
+        open(unit=222, file=TRIM(mgcamb_par_cache%output_root) // 'MGCAMB_debug_MG_fncs.dat', status="replace",&
             & action="write")
-        write(222,*)  'k  ', 'a  ', 'mu  ', 'gamma ', 'mudot ', 'gammadot ', 'Q ', 'R ', 'Phi ', 'Psi ', 'dPhi ', 'dPsi '
+        write(222,*)  '# k  ', 'a  ', 'mu  ', 'gamma ', 'mudot ', 'gammadot ', 'Q ', 'R ', 'Phi ', 'Psi ', 'dPhi ', 'dPsi '
 
         ! 3. Open Einstein solutions file
-        open(unit=333, file=TRIM(mgcamb_par_cache%output_root) // 'MGCAMB_debug_EinsteinSol.dat', status="new",&
+        open(unit=333, file=TRIM(mgcamb_par_cache%output_root) // 'MGCAMB_debug_EinsteinSol.dat', status="replace",&
             & action="write")
-        write(333,*) 'k  ', 'a  ', 'etak  ', 'z  ', 'sigma  ', 'etadot  ', 'sigmadot  '
+        write(333,*) '# k  ', 'a  ', 'etak  ', 'z  ', 'sigma  ', 'etadot  ', 'sigmadot  '
 
         ! 4. Open Perturbation solution file
-        open(unit=444, file=TRIM(mgcamb_par_cache%output_root) // 'MGCAMB_debug_PerturbSol.dat', status="new",&
+        open(unit=444, file=TRIM(mgcamb_par_cache%output_root) // 'MGCAMB_debug_PerturbSol.dat', status="replace",&
         & action="write")
-        write(444,*)  'k  ', 'a  ', 'dgrho  ', 'dgq  ', 'rhoDelta  ', 'dgpi  ', 'pidot_sum  ', 'dgpi_w_sum  '
+        write(444,*)  '# k  ', 'a  ', 'dgrho  ', 'dgq  ', 'rhoDelta  ', 'dgpi  ', 'pidot_sum  ', 'dgpi_w_sum  '
 
         ! 5. Open Background file
-        open(unit=555, file=TRIM(mgcamb_par_cache%output_root) // 'MGCAMB_debug_Background.dat', status="new",&
+        open(unit=555, file=TRIM(mgcamb_par_cache%output_root) // 'MGCAMB_debug_Background.dat', status="replace",&
             & action="write")
-        write(555,*)  'k  ', 'a  ', 'H  ', 'Hdot  ', 'grhov_t  ', 'gpresv_t  '
+        write(555,*)  '# k  ', 'a  ', 'H  ', 'Hdot  ', 'grhov_t  ', 'gpresv_t  '
 
     end subroutine MGCAMB_open_cache_files
 
