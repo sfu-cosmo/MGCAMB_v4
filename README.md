@@ -87,11 +87,12 @@ To run MGCAMB, first modify the  [``` params_MG.ini ``` ](inifiles/params_MG.ini
 ## 4. What's new
 New features with this new version of the code:
 - implemented the QSA models where only dark matter is coupled to scalar field
-- implemented the generic mu, sigma parametrization for different models
-- extend the dynamical dark energy by including DE perturbations to be consistent with CAMB in GR limit
+- implemented reconstruction model for mu, Sigma and Omega_x
+- implemented the direct mu, Sigma parametrization for different models
+- extended the dynamical dark energy by including the option of having DE perturbations to be consistent with CAMB in GR limit
 - provide angular power spectrum of variables for MG models from python interface
   (make sure to use function ``` set_mgparams ``` alongside other functions e.g. ``` set_cosmology ``` or ``` set_params ``` in your script.)
-- the code has been restructured and updated to the CAMB 1.3.5 version
+- the code has been restructured and upgraded to CAMB version 1.3.5 
 
 The MG and DE parametrizations along with the computation of the quantities related to the perturbations are introduced in the file [``` mgcamb.f90 ```](fortran/mgcamb.f90).
 
