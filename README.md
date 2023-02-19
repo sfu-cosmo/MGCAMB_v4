@@ -1,39 +1,36 @@
-MGCAMB v3.0
+MGCAMB v4.0
 ===========
 ## Modified Growth with CAMB
-This is the official repository for the MGCAMB v3.0 patch.  Below there are an introduction to the code and the instructions to install  and run the code. This new version of the code was introduced in the paper [*MGCAMB with massive neutrinos and dynamical Dark Energy*](https://arxiv.org/abs/1901.05956) 
+This is the official repository for the MGCAMB v4.0 patch.  Below there are an introduction to the code and the instructions to install and run the code. This new version of the code is introduced in the new paper to be published soon.  
 
 
 ## Table of contents
 * [1. Introduction](#1-introduction)
    * [Structure of the code](#structure-of-the-code)
-   * [Consistency of the code](#consistency-of-the-code)
    * [Citing MGCAMB](#citing-mgcamb)
 * [2. How to install](#2-how-to-install)
 * [3. How to run](#3-how-to-run)
-   * [Run the code](#run-the-code)
-   * [Run the test suite](#run-the-test-suite)
 * [4. What's new](#4-whats-new)
-* [5. Examples](#5-examples)
-* [6. Known Bugs](#6-known-bugs)
-* [7. Authors List](#authors-list)
+* [5. Authors List](#authors-list)
+
+
 
 ## 1. Introduction
 Modified Growth with CAMB (MGCAMB) is a patch for the Einstein Boltzmann solver [CAMB](https://github.com/cmbant/CAMB) that intrdouces phenomenological Modifications of Growth (MG) along with dynamical Dark Energy (DE). It includes several phenomenological parametrizations. For instance:
 
 - the mu, gamma parametrization, defined as
 <p align="center">
-<img src="src/img/mu_gamma.png" width="350" title="mu gamma parametrization" />
+<img src="img/mu_gamma.png" width="350" title="mu gamma parametrization" />
 </p>
 
 - the mu, Sigma parametrization, defined as
 <p align="center">
-<img src="src/img/mu_sigma.png" width="350" title="mu sigma parametrization" />
+<img src="img/mu_sigma.png" width="350" title="mu sigma parametrization" />
 </p>
 
 - the Q,R parametrization, defined as
 <p align="center">
-<img src="src/img/q_r.png" width="350" title="Q R parametrization" />
+<img src="img/q_r.png" width="350" title="Q R parametrization" />
 </p>
 
 MGCAMB is implemented in the latest version of [CosmoMC](https://github.com/cmbant/CosmoMC). The MGCosmoMC code can be found on this [repository](https://github.com/sfu-cosmo/MGCosmoMC)
@@ -42,20 +39,12 @@ MGCAMB is implemented in the latest version of [CosmoMC](https://github.com/cmba
 The new MGCAMB patch is structured as in the figure.
 
 <p align="center">
-<img src="src/img/MGCAMB_flowchart.png" width="1000" title="MGCAMB code structure" />
+<img src="img/MGCAMB_flowchart.png" width="1000" title="MGCAMB code structure" />
 </p>
 
-The parameters in  [``` params_MG.ini ``` ](src/params_MG.ini) are used to run the code and follow the structure above. 
-Please, note that dynamical DE is supported in the ``` pure_MG_models ```. 
+The parameters in  [``` params_MG.ini ``` ](inifiles/params_MG.ini) are used to run the code and follow the structure above. 
+Please, note that dynamical DE is supported in the ``` pure_MG_models ``` and ``` reconstruction model ```, where DE perturbations are also included. 
 
-### Consistency of the code
-The General Relativity (GR) limit of the code has been tested. The results below show the maximum error obtained in the CMB TT spectrum and matter power spectrum when using the MG equations (in the GR limit) to evolve the system:
-
-<p align="center">
-<img src="src/img/cls_mpk_consistency_max.png" width="750" title="MGCAMB consistency" />
-</p>
-
-For all  ``` GRtrans ``` times, the systematic maximum error is below 0.1%. This is achieved by delaying the time at which the Radiation Streaming Approximation (RSA) is switched on.  This slows down MGCAMB code with respect to the default CAMB code by a factor of two.
 
 
 ### Citing MGCAMB
@@ -76,64 +65,54 @@ If you use MGCAMB for your scientific work, please cite the following papers:
     [arXiv:0809.3791 [astro-ph]](http://arxiv.org/abs/0809.3791), [Phys. Rev. D 79, 083513](https://journals.aps.org/prd/abstract/10.1103/PhysRevD.79.083513)
 
 
-as well as the original CAMB [paper](http://arxiv.org/abs/astro-ph/9911177). The file  [``` MGCAMB_references.bib```](src/mgcamb_notes/MGCAMB_references.bib) contains  all the references mentioned above.
+as well as the original CAMB [paper](http://arxiv.org/abs/astro-ph/9911177). 
 
 ## 2. How to install
-To install MGCAMB in your machine simply run
+To install MGCAMB on your machine, simply run
 ```bash
 git clone https://github.com/sfu-cosmo/MGCAMB.git
-cd MGCAMB/src/
-make camb
-```
-
-## 3. How to run
-
-### Run the code
-To run MGCAMB, first modify the  [``` params_MG.ini ``` ](src/params_MG.ini) file according to which models you want to analyze. Then run
-
-```bash
-./camb params.ini
-```
-
-
-### Run the test suite
-If you want to run the test suite to produce the consistency plots in our paper, then run
-
-```bash
-cd mgcamb_tests
+cd MGCAMB/fortran/
 make 
 ```
 
+## 3. How to run
+To run MGCAMB, first modify the  [``` params_MG.ini ``` ](inifiles/params_MG.ini) file according to which models you want to analyze. Then run
+
+```bash
+./camb ../inifiles/params.ini
+```
+
+
 
 ## 4. What's new
-With these new version of the code we implemented consistently massive neutrinos, see accuracy plots above, and dynamical dark energy. 
+New features with this new version of the code:
+- implemented the QSA models where only dark matter is coupled to scalar field
+- implemented the generic mu, sigma parametrization for different models
+- extend the dynamical dark energy by including DE perturbations to be consistent with CAMB in GR limit
+- provide angular power spectrum of variables for MG models from python interface
+  (make sure to use function ``` set_mgparams ``` alongside other functions e.g. ``` set_cosmology ``` or ``` set_params ``` in your script.)
+- the code has been restructured and updated to the CAMB 1.3.5 version
 
-Also, the code has been checked and restructured and updated to the CAMB 2018 version. 
+The MG and DE parametrizations along with the computation of the quantities related to the perturbations are introduced in the file [``` mgcamb.f90 ```](fortran/mgcamb.f90).
 
-The MG and DE parametrizations along with the computation of the quantities related to the perturbations are introduced in the file [``` mgcamb.f90 ```](src/mgcamb.f90).
 
-## 5. Examples
 
-## 6. Known Bugs
-- **Fixed** Bug in mu-sigma parametrization. ```MGCAMB_Gammadot``` from the mu-sigma parametrization was missing the  ```omegaDE_t``` term. 
-
-- **Fixed**. Bug in Hu-Sawicki f(R) gravity: ```MGCAMB_Mu``` and ```MGCAMB_Mudot``` functions had a wrong ```t1``` term.  Thanks to Ziad Sakr.
-
-## 7. Authors List
+## 5. Authors List
 Main Developer:
-- [Alex Zucca](https://www.sfu.ca/physics/people/profiles/azucca.html) Email: azucca@dwavesys.com
+- Zhuangfei Wang (Email: zhuangfei_wang@sfu.ca)
+- Alex Zucca (Email: azucca@dwavesys.com)
 
 Original Code Developers:
-* [Gong-Bo Zhao](http://icosmology.info)
-* [Alireza Hojjati](http://www.phas.ubc.ca/%7Eahojjati/index.html)
+* [Gong-Bo Zhao](http://english.nao.cas.cn/aboutus/directors/202103/t20210321_265637.html)
+* Alireza Hojjati
 * [Levon Pogosian](http://www.sfu.ca/%7Elevon/)
 * [Alessandra Silvestri](http://wwwhome.lorentz.leidenuniv.nl/%7Esilvestri/Home.html)
 
 
 
-Repo created and maintained by [Alex Zucca](https://github.com/alexzucca90). If you find any bugs in the code, please contact Alex Zucca at azucca@dwavesys.com .
+Repo created and maintained by Zhuangfei Wang. If you find any bugs in the code, please contact Zhuangfei Wang at zhuangfei_wang@sfu.ca .
 
 <p align="center">
-    <a href="http://www.sfu.ca/physics.html"><img src="https://pbs.twimg.com/profile_images/966810928669802496/LVqOwtsx_400x400.jpg" height="170px"></a>
+    <a href="http://www.sfu.ca/physics.html"><img src="https://www.sfu.ca/content/sfu/sfuwest/cc-2015/registration/sponsored-students/jcr:content/main_content/image_0.img.640.medium.jpg/1430033284084.jpg" height="170px"></a>
     <a href="http://www.sfu.ca/physics/cosmology/"><img src="https://avatars0.githubusercontent.com/u/7880410?s=280&v=4" height="200px"></a>
 </p>
