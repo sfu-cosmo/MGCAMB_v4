@@ -101,7 +101,7 @@ The MG and DE parametrizations along with the computation of the quantities rela
 ## 5. Authors List
 Main Developers:
 - Zhuangfei Wang (Email: zhuangfei_wang@sfu.ca)
-- Alex Zucca (Email: azucca@dwavesys.com)
+- Alex Zucca (Email: alexzucca90@gmail.com)
 
 Original Code Developers:
 * [Gong-Bo Zhao](http://english.nao.cas.cn/aboutus/directors/202103/t20210321_265637.html)
