@@ -245,7 +245,7 @@ class CAMBparams(F2003Class):
         ("alt_MG_flag", c_int, "alt_MG_flag"),
         ("QSA_flag", c_int, "QSA_flag"),
         ("CDM_flag", c_int, "CDM_flag"),
-        ("test_flag", c_int, "test_flag"),
+        ("muSigma_flag", c_int, "muSigma_flag"),
         ("mugamma_par", c_int, "mugamma_par"),
         ("B1", c_double, "B1"),
         ("lambda1_2", c_double, "lambda1_2"),
@@ -606,7 +606,7 @@ class CAMBparams(F2003Class):
 
 #MGCAMB MOD START
     def set_mgparams(self, MG_wrapped = True, MG_flag= 0, GRtrans =  0.001, pure_MG_flag = 1, alt_MG_flag = 1, QSA_flag = 1, CDM_flag = 1,
-						test_flag = 1, mugamma_par = 1, B1 = 1.333, lambda1_2  = 1000, B2 = 0.5, lambda2_2 = 1000, ss = 4, E11 = 1.0, E22 = 1.0,
+						muSigma_flag = 1, mugamma_par = 1, B1 = 1.333, lambda1_2  = 1000, B2 = 0.5, lambda2_2 = 1000, ss = 4, E11 = 1.0, E22 = 1.0,
 						ga = 0.5, nn = 2, musigma_par = 1, mu0 =0.0, sigma0 = 0, QR_par = 1, MGQfix = 1, MGRfix = 1, Qnot = 1.0,
 						Rnot= 1.0, sss = 0, Linder_gamma = 0.545, B0 = 0.001, beta_star = 1.0, a_star = 0.5, xi_star = 0.001,
 						beta0 = 0.0, xi0 = 0.0001, DilS = 0.24, DilR = 1.0, F_R0 = 0.0001, FRn = 1.0, 
@@ -623,7 +623,7 @@ class CAMBparams(F2003Class):
         self.pure_MG_flag = pure_MG_flag
         self.alt_MG_flag = alt_MG_flag
         self.QSA_flag = QSA_flag
-        self.test_flag = test_flag
+        self.muSigma_flag = muSigma_flag
         self.CDM_flag  = CDM_flag
         self.mugamma_par  = mugamma_par
         self.musigma_par  = musigma_par

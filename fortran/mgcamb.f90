@@ -9,7 +9,7 @@ module MGCAMB
     integer :: mugamma_par  
     integer :: muSigma_par  
     integer :: QR_par
-    integer :: test_flag
+    integer :: muSigma_flag
     integer :: CDM_flag
 
     ! DE model flag
@@ -543,7 +543,7 @@ contains
 
         else if ( MG_flag == 5 )  then
 
-			if(test_flag ==1 .and. MGDE_pert) then
+			if(muSigma_flag ==1 .and. MGDE_pert) then
 				fs = mg_cache%k2+0.5d0*(2._dl*mg_cache%BigSigma - mg_cache%mu)*(3._dl*(mg_cache%grhoc_t+mg_cache%grhob_t) &
 					& + 4._dl*(mg_cache%grhog_t+mg_cache%grhor_t) +3._dl * (mg_cache%grhonu_t + mg_cache%gpresnu_t ) &
 					& + 3._dl * (mg_cache%grhov_t + mg_cache%gpresv_t )) 
@@ -559,7 +559,7 @@ contains
             term2 = mg_cache%rhoDelta*(2._dl*mg_cache%adotoa*(mg_cache%BigSigma - mg_cache%mu) &
                      - (2._dl*mg_cache%BigSigmadot - mg_cache%mudot))
 
-			if(test_flag ==1 .and. MGDE_pert) then
+			if(muSigma_flag ==1 .and. MGDE_pert) then
 				term3 = mg_cache%k2*mg_cache%MG_alpha*((2._dl*mg_cache%BigSigma - mg_cache%mu)*( mg_cache%grhoc_t+mg_cache%grhob_t &
 						& +(4._dl/3._dl)*(mg_cache%grhog_t+mg_cache%grhor_t) + (mg_cache%grhonu_t + mg_cache%gpresnu_t) &
 						& + (mg_cache%grhov_t + mg_cache%gpresv_t))- 2._dl*(mg_cache%adotoa**2 - mg_cache%Hdot))
@@ -799,7 +799,7 @@ contains
 
         else if (MG_flag == 5) then  !direct mu-Sigma parametrization
 
-            if(test_flag == 1) then !pure MG models
+            if(muSigma_flag == 1) then !pure MG models
 
                 if ( pure_MG_flag == 1 ) then ! mu-gamma
 
@@ -844,7 +844,7 @@ contains
 
                 end if
 
-            else if(test_flag == 2) then  !alternative MG models
+            else if(muSigma_flag == 2) then  !alternative MG models
 
                 if (alt_MG_flag == 1) then !(Linder Gamma)
                     omm=(mg_par_cache%omegab+mg_par_cache%omegac)/((mg_par_cache%omegab+mg_par_cache%omegac) &
@@ -859,7 +859,7 @@ contains
                     MGCAMB_Mu = 1._dl
                 end if
             
-            else if(test_flag == 3) then  ! all-matter QSA models
+            else if(muSigma_flag == 3) then  ! all-matter QSA models
 
                 if ( QSA_flag == 1 ) then ! f(R)
                     LKA1 = lambda1_2 * mg_cache%k2 * a**ss
@@ -884,11 +884,11 @@ contains
 
                 end if
             
-            else if(test_flag == 4) then ! reconstruction
+            else if(muSigma_flag == 4) then ! reconstruction
 
                 call splint1(a_arr,mu_arr,ddmu_arr,2*nnode,a,MGCAMB_Mu)
 
-            else if(test_flag == 5) then 
+            else if(muSigma_flag == 5) then 
 
                 write(*,*) 'Please write your own mu function for another model'  
                 stop
@@ -1031,7 +1031,7 @@ contains
 
         else if( MG_flag == 5) then ! direct mu-Sigma parametrization
 
-            if(test_flag == 1) then !pure MG models
+            if(muSigma_flag == 1) then !pure MG models
 
                 if ( pure_MG_flag == 1 ) then ! mu-gamma
                     if ( mugamma_par == 1 ) then ! BZ parametrization
@@ -1077,7 +1077,7 @@ contains
 
                 end if
  
-            else if(test_flag == 2) then !alternative MG models
+            else if(muSigma_flag == 2) then !alternative MG models
 
                 if (alt_MG_flag == 1) then !(Linder Gamma)
                     mu = MGCAMB_Mu( a, mg_par_cache, mg_cache )
@@ -1095,7 +1095,7 @@ contains
                     MGCAMB_Mudot = 0._dl
                 end if 
 
-            else if(test_flag == 3) then  ! all-matter QSA models
+            else if(muSigma_flag == 3) then  ! all-matter QSA models
 
                 if ( QSA_flag == 2 .or. &  ! beta, m parametrization
                       QSA_flag == 3 .or. &
@@ -1119,13 +1119,13 @@ contains
 
                 end if 
 
-            else if(test_flag == 4) then !reconstruction
+            else if(muSigma_flag == 4) then !reconstruction
 
                 call splint1(a_arr,dmu_arr,dddmu_arr,2*nnode,a,MGCAMB_Mudot)
 
                 MGCAMB_Mudot = MGCAMB_Mudot*mg_cache%adotoa *a
 
-            else if(test_flag == 5) then
+            else if(muSigma_flag == 5) then
         
                 write(*,*) 'Please write your own mudot function for another model'  
                 stop
@@ -1241,7 +1241,7 @@ contains
 
         else if (MG_flag == 5) then 
 
-            if(test_flag == 1) then 
+            if(muSigma_flag == 1) then 
 
                 if ( pure_MG_flag == 1 ) then ! mu-gamma
                     if ( mugamma_par == 1 ) then ! BZ parametrization
@@ -1280,7 +1280,7 @@ contains
 
                 end if
 
-            else if(test_flag == 2) then  
+            else if(muSigma_flag == 2) then  
 
                 if (alt_MG_flag == 1) then !(Linder Gamma)
                     MGCAMB_Gamma = 1._dl
@@ -1289,7 +1289,7 @@ contains
                     MGCAMB_Gamma = 1._dl
                 end if  
 
-            else if(test_flag == 3) then
+            else if(muSigma_flag == 3) then
 
                 if ( QSA_flag == 1 ) then ! f(R)
                     LKA1 = lambda1_2 * mg_cache%k2 * a**ss
@@ -1315,7 +1315,7 @@ contains
 
                 end if
 
-            else if(test_flag == 4) then
+            else if(muSigma_flag == 4) then
                 call splint1(a_arr,gamma_arr,ddgamma_arr,2*nnode,a,MGCAMB_Gamma)
             
 			end if
@@ -1443,7 +1443,7 @@ contains
         
         else if(MG_flag == 5) then 
         
-            if(test_flag == 1) then 
+            if(muSigma_flag == 1) then 
 
                 if ( pure_MG_flag == 1 ) then ! mu-gamma
                     if ( mugamma_par == 1 ) then ! BZ parametrization
@@ -1490,7 +1490,7 @@ contains
 
                 end if   
 
-            else if(test_flag == 2)  then
+            else if(muSigma_flag == 2)  then
             
                 if (alt_MG_flag == 1) then !(Linder Gamma)
                     MGCAMB_Gammadot = 0._dl
@@ -1499,7 +1499,7 @@ contains
                     MGCAMB_Gammadot = 0._dl
                 end if
             
-            else if(test_flag == 3) then 
+            else if(muSigma_flag == 3) then 
 
                 if ( QSA_flag == 1 ) then ! f(R)
                     LKA1 = lambda1_2 * mg_cache%k2 * a**ss
@@ -1527,7 +1527,7 @@ contains
 
                 end if
             
-            else if(test_flag == 4) then 
+            else if(muSigma_flag == 4) then 
                 call splint1(a_arr,dgamma_arr,dddgamma_arr,2*nnode,a,MGCAMB_Gammadot)
                 MGCAMB_Gammadot = MGCAMB_Gammadot*mg_cache%adotoa *a
             end if
@@ -1999,7 +1999,7 @@ contains
         mugamma_par  = CP%mugamma_par
         muSigma_par  = CP%muSigma_par
         QR_par = CP%QR_par
-        test_flag = CP%test_flag
+        muSigma_flag = CP%muSigma_flag
         CDM_flag  = CP%CDM_flag
 
         DE_model = CP%DE_model
@@ -2155,7 +2155,7 @@ contains
 				end if
 
 			else if ( MG_flag == 5) then
-				if( test_flag== 1) then
+				if( muSigma_flag== 1) then
 					if( pure_MG_flag /= 1 .and. pure_MG_flag /= 2) then
 						stop 'Choose pure_MG_flag properly!'
 					end if
@@ -2163,12 +2163,12 @@ contains
 						stop 'Choose DE_model properly!'
 					end if
 
-				else if(test_flag==2) then
+				else if(muSigma_flag==2) then
 					if ( DE_model /= 0 ) then
 						stop 'Choose DE_model properly!'
 					end if
 
-				else if(test_flag==3) then
+				else if(muSigma_flag==3) then
 					if ( QSA_flag > 4 .or. QSA_flag < 1 ) then
 						 stop 'Choose QSA_flag properly!'
 					end if
@@ -2189,7 +2189,7 @@ contains
 						stop 'Choose DE_model properly!'
 					end if
 
-				else if(test_flag==4) then
+				else if(muSigma_flag==4) then
 					if ( DE_model /=1 .and. DE_model /= 2 .and. DE_model /= 3) then
 						stop 'Choose DE_model properly!'
 					end if
@@ -2458,9 +2458,9 @@ contains
 
                 write(*,*) 'direct mu-Sigma parametrization'
 
-                test_flag = Ini%Read_Int('test_flag', 1)
+                muSigma_flag = Ini%Read_Int('muSigma_flag', 1)
             
-                if (test_flag == 1) then
+                if (muSigma_flag == 1) then
 
                     pure_MG_flag = Ini%Read_Int('pure_MG_flag', 1)
 
@@ -2537,7 +2537,7 @@ contains
                         stop
                     end if
 
-                else if(test_flag == 2) then 
+                else if(muSigma_flag == 2) then 
 
                     alt_MG_flag = Ini%Read_Int('alt_MG_flag', 1)
                     if ( alt_MG_flag == 1 ) then
@@ -2558,7 +2558,7 @@ contains
                         write(*,*) 'alternative MG models supported only with cosmological constant!'
                     end if
                 
-                else if (test_flag == 3) then 
+                else if (muSigma_flag == 3) then 
 
                     write(*,*) 'standard QSA for all-matter case'
 
@@ -2606,7 +2606,7 @@ contains
                         write(*,*) 'QSA models supported only with cosmological constant!'
                     end if  
 
-                else if(test_flag == 4) then 
+                else if(muSigma_flag == 4) then 
 
                     write(*,*) 'Reconstruction'
                     do i = 1, nnode+1

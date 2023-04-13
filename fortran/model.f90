@@ -196,7 +196,7 @@
         integer :: alt_MG_flag = 1
         integer :: QSA_flag = 1
         integer :: CDM_flag = 1
-        integer :: test_flag = 1
+        integer :: muSigma_flag = 1
         integer :: mugamma_par = 1
         real(dl):: B1 = 1.333d0
         real(dl):: lambda1_2  = 1000
