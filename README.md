@@ -33,7 +33,7 @@ Modified Growth with CAMB (MGCAMB) is a patch for the Einstein Boltzmann solver 
 <img src="img/q_r.png" width="350" title="Q R parametrization" />
 </p>
 
-MGCAMB is implemented in the latest version of [CosmoMC](https://github.com/cmbant/CosmoMC). The MGCosmoMC code can be found on this [repository](https://github.com/sfu-cosmo/MGCosmoMC)
+MGCAMB is implemented in the latest version of [CosmoMC](https://github.com/cmbant/CosmoMC). The MGCosmoMC code can be found in this [repository](https://github.com/sfu-cosmo/MGCosmoMC).
 
 ### Structure of the code
 The new MGCAMB patch is structured as in the figure.
@@ -43,12 +43,17 @@ The new MGCAMB patch is structured as in the figure.
 </p>
 
 The parameters in  [``` params_MG.ini ``` ](inifiles/params_MG.ini) are used to run the code and follow the structure above. 
-Please, note that dynamical DE is supported in the ``` pure_MG_models ``` and ``` reconstruction model ```, where DE perturbations are also included. 
+Please, note that dynamical DE is supported in the ``` pure_MG_models ```, where DE perturbations could also be included, and ``` cubic-spline model ```. 
 
 
 
-### Citing MGCAMB
-If you use MGCAMB for your scientific work, please cite the following papers:
+### Citing MGCobaya
+If you use MGCobaya for your scientific work, please cite the following papers:
+
+* *New MGCAMB tests of gravity with CosmoMC and Cobaya*\
+    Zhuangfei Wang, Seyed Hamidreza Mirpoorian, Levon Pogosian, Alessandra Silvestri, Gong-Bo Zhao\
+    [arXiv:2305.05667 [astro-ph.CO]](https://arxiv.org/abs/2305.05667)
+
 
 * *MGCAMB with massive neutrinos and dynamical dark energy*   
     Alex Zucca, Levon Pogosian, Alessandra Silvestri, and Gong-Bo Zhao  
@@ -65,7 +70,7 @@ If you use MGCAMB for your scientific work, please cite the following papers:
     [arXiv:0809.3791 [astro-ph]](http://arxiv.org/abs/0809.3791), [Phys. Rev. D 79, 083513](https://journals.aps.org/prd/abstract/10.1103/PhysRevD.79.083513)
 
 
-as well as the original CAMB [paper](http://arxiv.org/abs/astro-ph/9911177). 
+as well as the original CAMB [paper](http://arxiv.org/abs/astro-ph/9911177).
 
 ## 2. How to install
 To install MGCAMB on your machine, simply run
@@ -76,7 +81,7 @@ make
 ```
 
 ## 3. How to run
-To run MGCAMB, first modify the  [``` params_MG.ini ``` ](inifiles/params_MG.ini) file according to which models you want to analyze. Then run
+To run MGCAMB, first modify the  [``` params_MG.ini ``` ](inifiles/params_MG.ini) file according to which models you want to use. Then run
 
 ```bash
 ./camb ../inifiles/params.ini
@@ -87,12 +92,14 @@ To run MGCAMB, first modify the  [``` params_MG.ini ``` ](inifiles/params_MG.ini
 ## 4. What's new
 New features with this new version of the code:
 - implemented the QSA models where only dark matter is coupled to scalar field
-- implemented reconstruction model for mu, Sigma and Omega_x
+- added background model based on parameterization of the DE density Omega_x, as opposed to w
+- implemented a non-parametric reconstruction of mu, Sigma and Omega_x based on cubic-spline interpolation
 - implemented the direct mu, Sigma parametrization for different models
-- extended the dynamical dark energy by including the option of having DE perturbations to be consistent with CAMB in GR limit
-- provide angular power spectrum of variables for MG models from python interface
+- the option of including DE perturbations to achieve the consistency with CAMB when working with $w \neq −1$ background models.
+- added a python wrapper to run MGCAMB from the python interface\
   (make sure to use function ``` set_mgparams ``` alongside other functions e.g. ``` set_cosmology ``` or ``` set_params ``` in your script.)
 - the code has been restructured and upgraded to CAMB version 1.3.5 
+- added compatibility with Cobaya [(MGCobaya)](https://github.com/sfu-cosmo/MGCobaya-beta)
 
 The MG and DE parametrizations along with the computation of the quantities related to the perturbations are introduced in the file [``` mgcamb.f90 ```](fortran/mgcamb.f90).
 
