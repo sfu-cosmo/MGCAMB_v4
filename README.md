@@ -33,7 +33,7 @@ Modified Growth with CAMB (MGCAMB) is a patch for the Einstein Boltzmann solver 
 <img src="img/q_r.png" width="350" title="Q R parametrization" />
 </p>
 
-MGCAMB is implemented in the latest version of [CosmoMC](https://github.com/cmbant/CosmoMC). The MGCosmoMC code can be found in this [repository](https://github.com/sfu-cosmo/MGCosmoMC).
+MGCAMB is implemented in the latest version of [CosmoMC](https://github.com/cmbant/CosmoMC) and can be used with [Cobaya](https://cobaya.readthedocs.io/en/latest/). The [MGCosmoMC](https://github.com/sfu-cosmo/MGCosmoMC) and [MGCobaya](https://github.com/sfu-cosmo/MGCobaya) codes are also available for download. 
 
 ### Structure of the code
 The new MGCAMB patch is structured as in the figure.
@@ -99,7 +99,7 @@ New features with this new version of the code:
 - added a python wrapper to run MGCAMB from the python interface\
   (make sure to use function ``` set_mgparams ``` alongside other functions e.g. ``` set_cosmology ``` or ``` set_params ``` in your script.)
 - the code has been restructured and upgraded to CAMB version 1.3.5 
-- added compatibility with Cobaya [(MGCobaya)](https://github.com/sfu-cosmo/MGCobaya-beta)
+- added compatibility with Cobaya [(MGCobaya)](https://github.com/sfu-cosmo/MGCobaya)
 
 The MG and DE parametrizations along with the computation of the quantities related to the perturbations are introduced in the file [``` mgcamb.f90 ```](fortran/mgcamb.f90).
 
