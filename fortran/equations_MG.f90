@@ -1798,6 +1798,9 @@
     end subroutine outputv
 
     subroutine initial(EV,y, tau)
+    !> MGCAMB MOD START
+    use MGCAMB
+    !< MGCAMB MOD END
     !  Scalar initial conditions.
     implicit none
 
@@ -1815,6 +1818,10 @@
     !< MDGCAMB MOD END
     !> MGCAMB MOD START
     integer, parameter :: i_max = i_vc
+    !< MDGCAMB MOD END
+    !> MGCAMB MOD START: adding local variables
+    real(dl) MG_gamma, MG_mu, RE_CPsi
+    type(MGCAMB_timestep_cache) :: mgcamb_cache
     !< MDGCAMB MOD END
     real(dl) initv(6,1:i_max), initvec(1:i_max)
 
@@ -1890,18 +1897,56 @@
     initv=0
 
     !  Set adiabatic initial conditions
+    !*****************************
+    !* MGCAMB MOD START:
+    ! if (MG_flag/=0) then
+    if ( MG_flag /= 0 .and. a .ge. GRtrans ) then
+        ! mu, gamma parametrization
+        call MGCAMB_timestep_cache_nullify( mgcamb_cache )
+        mgcamb_cache%adotoa = 1._dl ! Just to avoid dividing zero; do not actually matter since mgcamb_cache%grhov_t=0
+        mgcamb_cache%k          = k
+        mgcamb_cache%k2         = k2
 
-    chi=1  !Get transfer function for chi
-    initv(1,i_clxg)=-chi*EV%Kf(1)/3*x2*(1-omtau/5)
-    initv(1,i_clxr)= initv(1,i_clxg)
-    initv(1,i_clxb)=0.75_dl*initv(1,i_clxg)
-    initv(1,i_clxc)=initv(1,i_clxb)
-    initv(1,i_qg)=initv(1,i_clxg)*x/9._dl
-    initv(1,i_qr)=-chi*EV%Kf(1)*(4*Rv+23)/Rp15*x3/27
-    initv(1,i_vb)=0.75_dl*initv(1,i_qg)
-    initv(1,i_pir)=chi*4._dl/3*x2/Rp15*(1+omtau/4*(4*Rv-5)/(2*Rv+15))
-    initv(1,i_aj3r)=chi*4/21._dl/Rp15*x3
-    initv(1,i_eta)=-chi*2*EV%Kf(1)*(1 - x2/12*(-10._dl/Rp15 + EV%Kf(1)))
+        MG_mu = MGCAMB_Mu( a, mgcamb_par_cache, mgcamb_cache )
+        MG_gamma = MGCAMB_Gamma( a, mgcamb_par_cache, mgcamb_cache )
+        !write(*,*) 'MG_mu=', MG_mu
+        !write(*,*) 'MG_gamma=', MG_gamma
+
+        !* we assume flat universe here
+        chi=1  !Get transfer function for chi
+        RE_CPsi = 10.0_dl/(10*MG_gamma+5+4*MG_mu*Rv)*chi
+
+        initv(1,i_clxg) = -RE_CPsi*x2*( (0.5_dl/MG_mu+2._dl/15*Rv) - (((MG_gamma+1)/20._dl/MG_mu-2._dl/25*Rv)/(1.0_dl+3*(MG_gamma-1.0_dl)/(4.0_dl+8._dl/15*MG_mu*Rv))+8._dl/75*Rv)*omtau )
+        initv(1,i_clxr)= initv(1,i_clxg)
+        initv(1,i_clxb)=0.75_dl*initv(1,i_clxg)
+        initv(1,i_clxc)=initv(1,i_clxb)
+        ! initv(1,i_qg)=initv(1,i_clxg)*x/9._dl
+        initv(1,i_qg) = -RE_CPsi*x3*( (0.5_dl/MG_mu+2._dl/15*Rv)/9._dl - (((MG_gamma+1)/20._dl/MG_mu-2._dl/25*Rv)/(1.0_dl+3*(MG_gamma-1.0_dl)/(4.0_dl+8._dl/15*MG_mu*Rv))+8._dl/75*Rv)/12._dl*omtau ) &
+            & + Rb*x3*omtau*(15+4.0_dl*MG_mu*Rv)/36._dl/MG_mu/(1._dl-Rv)/(10*MG_gamma+5+4*MG_mu*Rv)
+        ! initv(1,i_qr) = initv(1,i_qg) - 4._dl/135*RE_CPsi*x3
+        initv(1,i_qr) = initv(1,i_qg) - 4._dl/135*RE_CPsi*x3 -4._dl/9*(-(MG_gamma+1)/8._dl+0.2_dl*MG_mu*Rv)/(45*MG_gamma+15+8*MG_mu*Rv)*RE_CPsi*x3*omtau &
+            & - Rb*x3*omtau*(15+4.0_dl*MG_mu*Rv)/36._dl/MG_mu/(1._dl-Rv)/(10*MG_gamma+5+4*MG_mu*Rv)
+        initv(1,i_vb)=0.75_dl*initv(1,i_qg)
+        initv(1,i_pir) = RE_CPsi*x2*(2._dl/15+ 8._dl/3*(-(MG_gamma+1)/8._dl+0.2_dl*MG_mu*Rv)/(45*MG_gamma+15+8*MG_mu*Rv)*omtau )
+        initv(1,i_aj3r) = RE_CPsi*x3*(2._dl/105)
+        ! initv(1,i_eta) = -2*chi + 1._dl/6*(1.5_dl/MG_mu-1+0.4_dl*Rv)*RE_CPsi*x2     ! here: eta = -2*eta_s
+        initv(1,i_eta) = -2*chi + 1._dl/6*(1.5_dl/MG_mu-1+0.4_dl*Rv)*RE_CPsi*x2 -2*((-0.4/MG_mu+1._dl/9-4._dl/75*Rv)*(-(MG_gamma+1)/8._dl+0.2_dl*MG_mu*Rv)/(3*MG_gamma+1+8._dl/15*MG_mu*Rv)+2._dl/75*Rv)*RE_CPsi*x2*omtau    ! here: eta = -2*eta_s
+    else
+        chi=1  !Get transfer function for chi
+        initv(1,i_clxg)=-chi*EV%Kf(1)/3*x2*(1-omtau/5)
+        initv(1,i_clxr)= initv(1,i_clxg)
+        initv(1,i_clxb)=0.75_dl*initv(1,i_clxg)
+        initv(1,i_clxc)=initv(1,i_clxb)
+        initv(1,i_qg)=initv(1,i_clxg)*x/9._dl
+        initv(1,i_qr)=-chi*EV%Kf(1)*(4*Rv+23)/Rp15*x3/27
+        initv(1,i_vb)=0.75_dl*initv(1,i_qg)
+        initv(1,i_pir)=chi*4._dl/3*x2/Rp15*(1+omtau/4*(4*Rv-5)/(2*Rv+15))
+        initv(1,i_aj3r)=chi*4/21._dl/Rp15*x3
+        initv(1,i_eta)=-chi*2*EV%Kf(1)*(1 - x2/12*(-10._dl/Rp15 + EV%Kf(1)))
+    endif
+    !* MGCMAB MOD END
+    !*****************************
+
     !> MGCAMB MOD START
     initv(1,i_vc)= 0._dl
     !< MDGCAMB MOD END
