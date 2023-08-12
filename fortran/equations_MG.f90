@@ -3220,8 +3220,8 @@
                 ! compute MG ISW
                 call MGCAMB_compute_ISW( a, mgcamb_par_cache, mgcamb_cache )
 
-                ISW = exptau * (mgcamb_cache%MG_ISW - MGDE_ISW/k2)
-				phidot = (mgcamb_cache%MG_ISW - MGDE_ISW/k2)/2._dl
+                ISW = exptau * (mgcamb_cache%MG_ISW - 2._dl*MGDE_ISW)
+				phidot = (mgcamb_cache%MG_ISW - 2._dl*MGDE_ISW)/2._dl
 
                 sigmadot = mgcamb_cache%sigmadot
 
