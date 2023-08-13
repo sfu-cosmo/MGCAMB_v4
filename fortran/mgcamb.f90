@@ -2320,7 +2320,7 @@ contains
 						write( cTemp,'(i2)' ) i
 						X_arr(i+nnode-1) =  Ini%Read_Double('Funcofw('//trim(adjustl(cTemp))//')', 1._dl)
 					end do
-					X_arr(2*nnode) = mgcamb_par_cache%omegav
+					!X_arr(2*nnode) = mgcamb_par_cache%omegav
                 else if ( DE_model == 4 ) then
                     write(*,*) 'This will contain the reconstruction of rho_DE(a)'
                     write(*,*) 'Not implemented yet'
@@ -2526,7 +2526,7 @@ contains
                             write( cTemp,'(i2)' ) i
                             X_arr(i+nnode-1) =  Ini%Read_Double('Funcofw('//trim(adjustl(cTemp))//')', 1._dl)
                         end do
-                        X_arr(2*nnode) = mgcamb_par_cache%omegav
+                        !X_arr(2*nnode) = mgcamb_par_cache%omegav
 
                     else if ( DE_model == 4 ) then
                         write(*,*) 'This will contain the reconstruction of rho_DE(a)'
@@ -2630,7 +2630,7 @@ contains
                             write( cTemp,'(i2)' ) i
                             X_arr(i+nnode-1) =  Ini%Read_Double('Funcofw('//trim(adjustl(cTemp))//')', 1._dl)
                         end do
-                        X_arr(2*nnode) = mgcamb_par_cache%omegav
+                        !(2*nnode) = mgcamb_par_cache%omegav
                 
                     else
                         write(*,*) 'Please choose a DE model'
@@ -2665,7 +2665,7 @@ contains
 						write( cTemp,'(i2)' ) i
 						X_arr(i+nnode-1) =  Ini%Read_Double('Funcofw('//trim(adjustl(cTemp))//')', 1._dl)
 					end do
-					X_arr(2*nnode) = mgcamb_par_cache%omegav
+					!X_arr(2*nnode) = mgcamb_par_cache%omegav
 				
 				else 
 					write(*,*) 'Please choose a DE model'

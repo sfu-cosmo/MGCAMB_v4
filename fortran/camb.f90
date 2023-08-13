@@ -419,7 +419,7 @@
     if (allocated(P%DarkEnergy)) deallocate(P%DarkEnergy)
 	!> MGCAMB MOD START
     if ((DarkEneryModel == 'FLUID' .and. MG_flag == 0) .or.  &
-		(MG_flag /= 0 .and. (DE_model == 0 .or. DE_model == 1))) then
+		(MG_flag /= 0 .and. (DE_model == 0 .or. DE_model == 1 .or. DE_model == 3))) then
         allocate (TDarkEnergyFluid::P%DarkEnergy)
     else if ((DarkEneryModel == 'PPF' .and. MG_flag == 0) .or. &
 		(MG_flag /= 0 .and. DE_model == 2)) then

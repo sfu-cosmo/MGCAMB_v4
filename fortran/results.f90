@@ -460,8 +460,16 @@
         this%Omega_de = 1 -(this%CP%omch2 + this%CP%ombh2 + this%CP%omnuh2)/h2 - this%CP%omk  &
             - (this%grhornomass + this%grhog)/this%grhocrit
         this%grhov=this%grhocrit*this%Omega_de
+
         !> MGCAMB MOD START
 		mgcamb_par_cache%omegav = this%Omega_de
+        
+        !fix last node of X_arr when running from fortran 
+        if(.not. P%MG_wrapped) then
+            if(DE_model == 3) then 
+                X_arr(2*nnode) = mgcamb_par_cache%omegav
+            end if 
+        end if
 
         if(P%MG_wrapped) then
             call MGCAMB_read_in_MGparams(P)
