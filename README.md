@@ -5,13 +5,17 @@ This is the official repository for the MGCAMB v4.0 patch.  Below there are an i
 
 
 ## Table of contents
-* [1. Introduction](#1-introduction)
-   * [Structure of the code](#structure-of-the-code)
-   * [Citing MGCAMB](#citing-mgcamb)
-* [2. How to install](#2-how-to-install)
-* [3. How to run](#3-how-to-run)
-* [4. What's new](#4-whats-new)
-* [5. Authors List](#authors-list)
+- [MGCAMB v4.0](#mgcamb-v40)
+  - [Modified Growth with CAMB](#modified-growth-with-camb)
+  - [Table of contents](#table-of-contents)
+  - [1. Introduction](#1-introduction)
+    - [Structure of the code](#structure-of-the-code)
+    - [Citing MGCobaya](#citing-mgcobaya)
+  - [2. How to install](#2-how-to-install)
+  - [3. How to run](#3-how-to-run)
+  - [4. What's new](#4-whats-new)
+  - [5. Known bugs](#5-known-bugs)
+  - [6. Authors List](#6-authors-list)
 
 
 
@@ -95,7 +99,7 @@ New features with this new version of the code:
 - added background model based on parameterization of the DE density Omega_x, as opposed to w
 - implemented a non-parametric reconstruction of mu, Sigma and Omega_x based on cubic-spline interpolation
 - implemented the direct mu, Sigma parametrization for different models
-- the option of including DE perturbations to achieve the consistency with CAMB when working with $w \neq −1$ background models.
+- the option of including DE perturbations to achieve the consistency with CAMB when working with $w \neq −1$ background models. (controlled by parameter `MGDE_pert`)
 - added a python wrapper to run MGCAMB from the python interface\
   (make sure to use function ``` set_mgparams ``` alongside other functions e.g. ``` set_cosmology ``` or ``` set_params ``` in your script.)
 - the code has been restructured and upgraded to CAMB version 1.3.5 
@@ -103,9 +107,11 @@ New features with this new version of the code:
 
 The MG and DE parametrizations along with the computation of the quantities related to the perturbations are introduced in the file [``` mgcamb.f90 ```](fortran/mgcamb.f90).
 
+## 5. Known bugs
+- The debug mode (`make Debug`) is not well-tested for this version. Please run the code using the normal option described in sections [2](#2-how-to-install) and [3](#3-how-to-install) .
 
 
-## 5. Authors List
+## 6. Authors List
 Main Developers:
 - Zhuangfei Wang (Email: zhuangfei_wang@sfu.ca)
 - Alex Zucca (Email: alexzucca90@gmail.com)
