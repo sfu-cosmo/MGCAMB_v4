@@ -104,11 +104,12 @@ New features with this new version of the code:
   (make sure to use function ``` set_mgparams ``` alongside other functions e.g. ``` set_cosmology ``` or ``` set_params ``` in your script.)
 - the code has been restructured and upgraded to CAMB version 1.3.5 
 - added compatibility with Cobaya [(MGCobaya)](https://github.com/sfu-cosmo/MGCobaya)
-
+  
 The MG and DE parametrizations along with the computation of the quantities related to the perturbations are introduced in the file [``` mgcamb.f90 ```](fortran/mgcamb.f90).
 
 ## 5. Known bugs
 - The debug mode (`make Debug`) is not well-tested for this version. Please run the code using the normal option described in sections [2](#2-how-to-install) and [3](#3-how-to-install) .
+- (**Fixed**) The setting of Dark energy interface and the reading issue of X_arr for `DE_model == 3` in Fortran core. Thanks to Kushal Lodha. 
 
 
 ## 6. Authors List
