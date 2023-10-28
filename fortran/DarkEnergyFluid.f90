@@ -119,7 +119,6 @@
         dgrhoe = ay(w_ix) * grhov_t
         dgqe = ay(w_ix + 1) * grhov_t * (1 + w)
     end if
-!if(abs(a-1.d0)<1.d-5) write(*,*) 'PERTURB', dgrhoe, dgqe
     end subroutine TDarkEnergyFluid_PerturbedStressEnergy
 
 
@@ -151,7 +150,6 @@
     else
         ayprime(w_ix + 1) = 0
     end if
-!if(abs(a-1.d0)<1.d-5) write(*,*) 'EVOLVE'
 
     end subroutine TDarkEnergyFluid_PerturbationEvolve
 

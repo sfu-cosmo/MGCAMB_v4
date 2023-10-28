@@ -3100,10 +3100,10 @@
         end if
 
 		if(MG_flag == 0 ) then
-			diff_rhopi = pidot_sum - (4*dgpi+ dgpi_diff)*adotoa + &
-				State%CP%DarkEnergy%diff_rhopi_Add_Term(dgrho_de, dgq_de, grho, &
-				gpres, w_dark_energy_t, State%grhok, adotoa, &
-				EV%kf(1), k, grhov_t, z, k2, ayprime, ay, EV%w_ix)
+            diff_rhopi = pidot_sum - (4*dgpi+ dgpi_diff)*adotoa + &
+                State%CP%DarkEnergy%diff_rhopi_Add_Term(dgrho_de, dgq_de, grho, &
+                gpres, w_dark_energy_t, State%grhok, adotoa, &
+                EV%kf(1), k, grhov_t, z, k2, ayprime, ay, EV%w_ix)
 		else if(MG_flag /= 0 .and. (.not. MGDE_const) .and. MGDE_pert) then
 			diff_rhopi = pidot_sum - (4*dgpi+ dgpi_diff)*adotoa + &
 				State%CP%DarkEnergy%diff_rhopi_Add_Term(dgrho_de, dgq_de, grho, &
@@ -3298,15 +3298,15 @@
 
                     !>MGCAMB MOD START
 					if(MG_flag==0) then
-						call custom_sources_func(EV%CustomSources, tau, a, adotoa, grho, gpres,w_dark_energy_t, cs2_de, &
-							grhob_t,grhor_t,grhoc_t,grhog_t,grhov_t,grhonu_t, &
-							k, etak, ayprime(ix_etak), phi, phidot, sigma, sigmadot, &
-							dgrho, clxg,clxb,clxc,clxr,clxnu, dgrho_de/grhov_t, delta_p_b, &
-							dgq, qg, qr, dgq_de/grhov_t, vb, qgdot, qrdot, vbdot, &
-							dgpi, pig, pir, pigdot, pirdot, diff_rhopi, &
-							polter, polterdot, polterddot, octg, octgdot, E, Edot, &
-							opacity, dopacity, ddopacity, visibility, dvisibility, ddvisibility, exptau, &
-							tau0, State%tau_maxvis, EV%Kf,f_K)
+                        call custom_sources_func(EV%CustomSources, tau, a, adotoa, grho, gpres,w_dark_energy_t, cs2_de, &
+                            grhob_t,grhor_t,grhoc_t,grhog_t,grhov_t,grhonu_t, &
+                            k, etak, ayprime(ix_etak), phi, phidot, sigma, sigmadot, &
+                            dgrho, clxg,clxb,clxc,clxr,clxnu, dgrho_de/grhov_t, delta_p_b, &
+                            dgq, qg, qr, dgq_de/grhov_t, vb, qgdot, qrdot, vbdot, &
+                            dgpi, pig, pir, pigdot, pirdot, diff_rhopi, &
+                            polter, polterdot, polterddot, octg, octgdot, E, Edot, &
+                            opacity, dopacity, ddopacity, visibility, dvisibility, ddvisibility, exptau, &
+                            tau0, State%tau_maxvis, EV%Kf,f_K)
 					else
 						call custom_sources_func(EV%CustomSources, tau, a, adotoa, grho, gpres,w_MGDE, cs2_de, &
 							grhob_t,grhor_t,grhoc_t,grhog_t,grhov_t,grhonu_t, &

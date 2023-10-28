@@ -411,10 +411,6 @@
     endif
 
     !  Read initial parameters.
-    !> MGCAMB MOD START: reading models and params
-    call MGCAMB_read_model_params( mgcamb_par_cache, Ini )
-    !< MGCAMB MOD END
-
     DarkEneryModel = UpperCase(Ini%Read_String_Default('dark_energy_model', 'fluid'))
     if (allocated(P%DarkEnergy)) deallocate(P%DarkEnergy)
 	!> MGCAMB MOD START
@@ -455,6 +451,10 @@
     mgcamb_par_cache%h0     = P%H0
     mgcamb_par_cache%h0_Mpc = P%H0 * (1.d3/c)
     mgcamb_par_cache%output_root = outroot
+    !< MGCAMB MOD END
+
+    !> MGCAMB MOD START: reading models and params
+    call MGCAMB_read_model_params( mgcamb_par_cache, Ini )
     !< MGCAMB MOD END
 
 
