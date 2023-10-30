@@ -1,8 +1,7 @@
 MGCAMB v4.0
 ===========
 ## Modified Growth with CAMB
-This is the official repository for the MGCAMB v4.0 patch.  Below there are an introduction to the code and the instructions to install and run the code. This new version of the code is introduced in the new paper to be published soon.  
-
+This is the official repository for the MGCAMB v4.0 patch.  Below is an introduction and the instructions to install and run the code.  
 
 ## Table of contents
 - [MGCAMB v4.0](#mgcamb-v40)
@@ -10,11 +9,11 @@ This is the official repository for the MGCAMB v4.0 patch.  Below there are an i
   - [Table of contents](#table-of-contents)
   - [1. Introduction](#1-introduction)
     - [Structure of the code](#structure-of-the-code)
-    - [Citing MGCobaya](#citing-mgcobaya)
+    - [Citing MGCAMB](#citing-mgcamb)
   - [2. How to install](#2-how-to-install)
   - [3. How to run](#3-how-to-run)
   - [4. What's new](#4-whats-new)
-  - [5. Known bugs](#5-known-bugs)
+  - [5. Known issues](#5-known-issues)
   - [6. Authors List](#6-authors-list)
 
 
@@ -46,13 +45,12 @@ The new MGCAMB patch is structured as in the figure.
 <img src="img/MGCAMB_flowchart.png" width="1000" title="MGCAMB code structure" />
 </p>
 
-The parameters in  [``` params_MG.ini ``` ](inifiles/params_MG.ini) are used to run the code and follow the structure above. 
-Please, note that dynamical DE is supported in the ``` pure_MG_models ```, where DE perturbations could also be included, and ``` cubic-spline model ```. 
+The parameters in  [``` params_MG.ini ``` ](inifiles/params_MG.ini) are used to run the code and follow the structure above. Please note that dynamical DE is supported in the ``` pure_MG_models ```, where DE perturbations could also be included, and ``` cubic-spline model ```. 
 
 
 
-### Citing MGCobaya
-If you use MGCobaya for your scientific work, please cite the following papers:
+### Citing MGCAMB
+If you use MGCAMB for your scientific work, please cite the following papers:
 
 * *New MGCAMB tests of gravity with CosmoMC and Cobaya*\
     Zhuangfei Wang, Seyed Hamidreza Mirpoorian, Levon Pogosian, Alessandra Silvestri, Gong-Bo Zhao\
@@ -74,13 +72,13 @@ If you use MGCobaya for your scientific work, please cite the following papers:
     [arXiv:0809.3791 [astro-ph]](http://arxiv.org/abs/0809.3791), [Phys. Rev. D 79, 083513](https://journals.aps.org/prd/abstract/10.1103/PhysRevD.79.083513)
 
 
-as well as the original CAMB [paper](http://arxiv.org/abs/astro-ph/9911177).
+as well as the original CAMB [paper](http://arxiv.org/abs/astro-ph/9911177) and [code](https://github.com/cmbant/CAMB).
 
 ## 2. How to install
 To install MGCAMB on your machine, simply run
 ```bash
-git clone https://github.com/sfu-cosmo/MGCAMB.git
-cd MGCAMB/fortran/
+git clone https://github.com/sfu-cosmo/MGCAMB_v4.git
+cd MGCAMB_v4/fortran/
 make 
 ```
 
@@ -107,9 +105,10 @@ New features with this new version of the code:
   
 The MG and DE parametrizations along with the computation of the quantities related to the perturbations are introduced in the file [``` mgcamb.f90 ```](fortran/mgcamb.f90).
 
-## 5. Known bugs
+## 5. Known issues
 - The debug mode (`make Debug`) is not well-tested for this version. Please run the code using the normal option described in sections [2](#2-how-to-install) and [3](#3-how-to-install) .
 - (**Fixed**) The setting of Dark energy interface and the reading issue of X_arr for `DE_model == 3` in Fortran core. Thanks to Kushal Lodha. 
+- The model of effective Newton's constant (``mugamma_par = 3``) is not fully developed.
 
 
 ## 6. Authors List
